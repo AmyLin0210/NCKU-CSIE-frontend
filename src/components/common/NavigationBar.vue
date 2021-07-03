@@ -50,8 +50,13 @@ nav.nav-bar
       span.button {{ $t('login') }}
     img.search(src="@/assets/image/icon/search.png")
     section.langs
+      //- v-bind evaluate the expression at runtime,
+      //- but the path aliasing is complete in compile time.
+      //- To access static file via dynamic pathname,
+      //- use `require()` to get the compiled module.
+      //- Reference: https://github.com/vuejs/vue-loader/issues/896
       img.image(
-        :src="require(`/src/assets/image/icon/flag-${getLanguageId($root.$i18n.locale)}.png`)"
+        :src="require(`@/assets/image/icon/flag-${getLanguageId($root.$i18n.locale)}.png`)"
         @click="isShowLangs = !isShowLangs"
       )
       ul.dropdown(v-show="isShowLangs")
