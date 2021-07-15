@@ -56,7 +56,7 @@ nav.nav-bar
       //- use `require()` to get the compiled module.
       //- Reference: https://github.com/vuejs/vue-loader/issues/896
       img.image(
-        :src="require(`@/assets/image/icon/flag-${getLanguageId($root.$i18n.locale)}.png`)"
+        :src="require(`@/assets/image/icon/flag-${currentLanguageId}.png`)"
         @click="isShowLangs = !isShowLangs"
       )
       ul.dropdown(v-show="isShowLangs")
@@ -64,8 +64,10 @@ nav.nav-bar
           v-for="(language, key) in supportedLanguages"
           :key="`dropdown-langs-${key}`"
         )
-          li.item
-            img.flag(:src="require(`/src/assets/image/icon/flag-${language.id}.png`)")
+          li.item(
+            @click="changeLocale(key)"
+          )
+            img.flag(:src="require(`/src/assets/image/icon/flag-${key}.png`)")
             span.content {{ language.name }}
 </template>
 
@@ -81,18 +83,16 @@ export default {
     }
   },
   computed: {
-    ...mapState(
-      'language',
-      ['supportedLanguages']
-    ),
-    ...mapGetters(
-      'language',
-      ['getLanguageId']
-    ),
-    ...mapGetters(
-      'siteMap',
-      ['allSiteMap', 'siteMapHeader']
-    )
+    ...mapState('language', ['supportedLanguages']),
+    ...mapGetters('language', ['currentLanguageId', 'currentLanguage']),
+    ...mapGetters('siteMap', ['allSiteMap', 'siteMapHeader'])
+  },
+  methods: {
+    changeLocale (languageId) {
+      const params = new URLSearchParams(window.location.search)
+      params.set('languageId', languageId)
+      window.location.assign(`${window.location.pathname}?${params.toString()}`)
+    }
   }
 }
 </script>
@@ -120,7 +120,7 @@ $caption-gap: 4px;
   // [ skin ]
   background-color: #ffffff;
   padding-right: 10px;
-  box-shadow: 0 1px 2px rgba( 0, 0, 0, .25 );
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 }
 
 .logo {
@@ -246,7 +246,7 @@ $caption-gap: 4px;
   height: 100%;
 
   // [ animation ]
-  transition: right .5s;
+  transition: right 0.5s;
 
   > .list {
     // [ position ]
@@ -326,13 +326,13 @@ $caption-gap: 4px;
           top-width: 14px;
           bottom-width: 14px;
           left-width: 0;
-        };
+        }
         background-color: #213262;
 
         // [ skin ]
         padding: {
-          top: ( ( 80 - 2 * 14 ) - $font-size ) / 2;
-          bottom: ( ( 80 - 2 * 14 ) - $font-size ) / 2;
+          top: ((80 - 2 * 14) - $font-size) / 2;
+          bottom: ((80 - 2 * 14) - $font-size) / 2;
           left: 25px;
           right: 25px;
         }
@@ -371,7 +371,8 @@ $caption-gap: 4px;
     height: 36.15px;
     line-height: 36.15px;
     background-color: #213262;
-    box-shadow: 0 .06rem .06rem 0 rgba( 0, 0, 0, .24 ), 0 0 2px 0 rgba( 0, 0, 0, .12 );
+    box-shadow: 0 0.06rem 0.06rem 0 rgba(0, 0, 0, 0.24),
+      0 0 2px 0 rgba(0, 0, 0, 0.12);
     font: {
       size: 14px;
       weight: 500;
@@ -399,13 +400,8 @@ $caption-gap: 4px;
         size: 21.1px;
         repeat: no-repeat;
       }
-      filter:
-        invert( 100% )
-        sepia( 0% )
-        saturate( 1% )
-        hue-rotate( 49deg )
-        brightness( 101% )
-        contrast( 101% );
+      filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(49deg)
+        brightness(101%) contrast(101%);
     }
 
     > .button {
