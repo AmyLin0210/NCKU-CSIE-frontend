@@ -1,14 +1,3 @@
-<i18n>
-{
-  "zh-TW": {
-    "title": "首頁",
-  },
-  "en-US": {
-    "title": "Home"
-  }
-}
-</i18n>
-
 <template lang="pug">
 p {{i18n[currentLanguage].title}}
 </template>
