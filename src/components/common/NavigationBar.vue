@@ -1,14 +1,3 @@
-<i18n>
-{
-  "zh-TW": {
-    "login": "登入",
-  },
-  "en-US": {
-    "login": "Login"
-  }
-}
-</i18n>
-
 <template lang="pug">
 nav.nav-bar
   a.logo(href="/")
@@ -50,7 +39,7 @@ nav.nav-bar
   section.tools
     a.login(href="/auth/login")
       img.image(src="@/assets/image/icon/user.png")
-      span.button {{ $t('login') }}
+      span.button {{i18n[currentLanguage].login}}
     img.search(src="@/assets/image/icon/search.png")
     section.langs
       //- v-bind evaluate the expression at runtime,
@@ -81,6 +70,14 @@ export default {
   name: 'navigation-bar',
   data () {
     return {
+      i18n: {
+        'zh-TW': {
+          login: '登入'
+        },
+        'en-US': {
+          login: 'Login'
+        }
+      },
       currentList: '',
       isShowLangs: false
     }

@@ -1,26 +1,3 @@
-<i18n>
-{
-  "zh-TW": {
-    "contact": {
-      "title": "聯絡我們",
-      "address": "70101 台南市東區大學路一號",
-      "map": "交通方式(系館位置圖)",
-    },
-    "follow": "關注我們",
-    "developer": "開發者",
-  },
-  "en-US": {
-    "contact": {
-      "title": "Contact Us",
-      "address": "No.1, Daxue Rd., East Dist., Tainan City 701, Taiwan (R.O.C.)",
-      "map": "Department Location",
-    },
-    "follow": "Follow us",
-    "developer": "Developer",
-  },
-}
-</i18n>
-
 <template lang="pug">
 footer.footer
   a.logo(href="/")
@@ -39,10 +16,10 @@ footer.footer
       p.text Information
       p.text Engineering
   section.contact
-    h1.title {{ $t("contact.title") }}
+    h1.title {{i18n[currentLanguage].contact.title}}
     section.info
       img.icon(src="@/assets/image/icon/location.png")
-      a.content(href="/about/contact") {{ `${$t("contact.address")} | ${$t("contact.map")}` }}
+      a.content(href="/about/contact") {{ `${i18n[currentLanguage].contact.address} | ${i18n[currentLanguage].contact.map}` }}
     section.info
       img.icon(src="@/assets/image/icon/envelope.png")
       a.content(href="mailto:em62500@ncku.edu.tw") em62500@ncku.edu.tw
@@ -57,14 +34,14 @@ footer.footer
     hr.line
   section.others
     section.info
-      h3.title {{ $t("follow") }}
+      h3.title {{i18n[currentLanguage].follow}}
       a.link(
         href='https://www.facebook.com/ncku.csie',
         target = '_blank'
       )
         img.icon(src="@/assets/image/icon/facebook.png")
     section.info
-      h3.title {{ $t("developer") }}
+      h3.title {{i18n[currentLanguage].developer}}
       a.link(
         href="/developer",
         target = '_blank'
@@ -73,8 +50,37 @@ footer.footer
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  name: 'footer-bar'
+  name: 'footer-bar',
+  data () {
+    return {
+      i18n: {
+        'zh-TW': {
+          contact: {
+            title: '聯絡我們',
+            address: '70101 台南市東區大學路一號',
+            map: '交通方式(系館位置圖)'
+          },
+          follow: '關注我們',
+          developer: '開發者'
+        },
+        'en-US': {
+          contact: {
+            title: 'Contact Us',
+            address: 'No.1, Daxue Rd., East Dist., Tainan City 701, Taiwan (R.O.C.)',
+            map: 'Department Location'
+          },
+          follow: 'Follow us',
+          developer: 'Developer'
+        }
+      }
+    }
+  },
+  computed: {
+    ...mapGetters('language', ['currentLanguage'])
+  }
 }
 </script>
 

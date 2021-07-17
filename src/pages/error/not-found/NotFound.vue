@@ -1,14 +1,3 @@
-<i18n>
-{
-  "zh-TW": {
-    "title": "頁面不存在",
-  },
-  "en-US": {
-    "title": "Page not found"
-  }
-}
-</i18n>
-
 <template lang="pug">
 canvas#banner(ref="banner")
 </template>
@@ -133,6 +122,14 @@ export default {
   name: 'content',
   data () {
     return {
+      i18n: {
+        'zh-TW': {
+          title: '頁面不存在'
+        },
+        'en-US': {
+          title: 'Page not found'
+        }
+      },
       img404: new Image(),
       canvas: null,
       ctx: null,
