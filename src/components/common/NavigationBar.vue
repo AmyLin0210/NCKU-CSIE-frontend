@@ -35,15 +35,18 @@ nav.nav-bar
     )
       ul.list
         a.header(
-          :href="obj.header.href"
+          :href="`${obj.header.href}?languageId=${currentLanguageId}`"
           @mouseover="currentList = key"
-        ) {{obj.header[$root.$i18n.locale]}}
+        ) {{obj.header[$root.$i18n.locale].title}}
         li.dropdown(v-show="key === currentList")
           a.item(
             v-for="(item, itemKey) in obj.list"
             :key="`nav-item-${key}-${itemKey}`"
-            :href="item.href"
-          ) {{item[$root.$i18n.locale]}}
+            :href=" \
+              (item.href[0] === '/')?                                    \
+              `${item.href}?languageId=${currentLanguageId}` : item.href \
+            "
+          ) {{item[$root.$i18n.locale].title}}
   section.tools
     a.login(href="/auth/login")
       img.image(src="@/assets/image/icon/user.png")
@@ -98,13 +101,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-// [ variable ]
-$logo-height: 44px;
-$logo-width: 58px;
-$caption-title-font-size: 16px;
-$caption-subtitle-font-size: 12px;
-$caption-gap: 4px;
-
 .nav-bar {
   // [ layout ]
   position: fixed;
@@ -112,6 +108,7 @@ $caption-gap: 4px;
   top: 0;
   display: flex;
   align-items: center;
+  z-index: 1;
 
   // [ position ]
   width: 100%;
@@ -132,8 +129,8 @@ $caption-gap: 4px;
   .image {
     // [ layout ]
     display: inline-block;
-    width: $logo-width;
-    height: $logo-height;
+    width: 58px;
+    height: 44px;
 
     // [ skin ]
     margin: {
@@ -150,10 +147,10 @@ $caption-gap: 4px;
 
     // [ skin ]
     width: auto;
-    height: $logo-height;
+    height: 44px;
     padding: {
-      top: ( $logo-height - $caption-title-font-size - $caption-subtitle-font-size - $caption-gap ) / 2;
-      bottom: ( $logo-height - $caption-title-font-size - $caption-subtitle-font-size - $caption-gap ) / 2;
+      top: 6px;
+      bottom: 6px;
     }
     background-color: transparent;
 
@@ -161,7 +158,7 @@ $caption-gap: 4px;
       // [ layout ]
       display: block;
       width: auto;
-      height: $caption-title-font-size;
+      height: 16px;
       text-align: left;
       line-height: normal;
 
@@ -173,15 +170,15 @@ $caption-gap: 4px;
         // [ layout ]
         display: inline-block;
         vertical-align: top;
-        line-height: $caption-title-font-size;
+        line-height: 16px;
 
         // [ skin ]
         width: auto;
-        height: $caption-title-font-size;
-        margin-bottom: $caption-gap;
+        height: 16px;
+        margin-bottom: 4px;
         background-color: transparent;
         font: {
-          size: $caption-title-font-size;
+          size: 16px;
           style: normal;
           weight: bold;
         }
@@ -191,11 +188,11 @@ $caption-gap: 4px;
       // [ layout ]
       display: block;
       text-align: left;
-      line-height: $caption-subtitle-font-size;
+      line-height: 12px;
 
       // [ skin ]
       width: auto;
-      height: $caption-subtitle-font-size;
+      height: 12px;
       color: #212121;
       background-color: transparent;
 
@@ -203,12 +200,12 @@ $caption-gap: 4px;
         // [ layout ]
         display: inline-block;
         vertical-align: top;
-        line-height: $caption-subtitle-font-size;
+        line-height: 12px;
         word-spacing: 3px;
 
         // [ skin ]
         width: auto;
-        height: $caption-subtitle-font-size;
+        height: 12px;
         border: {
           color: transparent;
           style: solid;
@@ -216,7 +213,7 @@ $caption-gap: 4px;
         }
         background-color: transparent;
         font: {
-          size: $caption-subtitle-font-size;
+          size: 12px;
           style: normal;
           weight: normal;
         }
@@ -331,8 +328,8 @@ $caption-gap: 4px;
 
         // [ skin ]
         padding: {
-          top: ((80 - 2 * 14) - $font-size) / 2;
-          bottom: ((80 - 2 * 14) - $font-size) / 2;
+          top: 18px;
+          bottom: 18px;
           left: 25px;
           right: 25px;
         }
