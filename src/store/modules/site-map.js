@@ -316,6 +316,18 @@ const state = {
         href: '/resource/link'
       }
     }
+  },
+  attachment: {
+    header: {
+      'zh-TW': {
+        title: '常用文件'
+      },
+      'en-US': {
+        title: 'Attachment'
+      },
+      href: '/attachment'
+    },
+    list: {}
   }
 }
 

@@ -36,6 +36,11 @@ module.exports = {
       entry: 'src/pages/resource/index/main.js',
       filename: 'html/resource/index.html',
       title: '相關服務'
+    },
+    'resource/link': {
+      entry: 'src/pages/resource/link/main.js',
+      filename: 'html/resource/link.html',
+      title: '其他連結'
     }
   },
   devServer: {

@@ -7,7 +7,7 @@ section.entries
     a.entry(
       :class="`entry-${color[idx%6]}`"
       :href="entry.href"
-      :_blank="!(entry.href[0] === '/')"
+      :target="(entry.href[0] === '/')? '': '_blank'"
     )
       h3.title {{ entry.title }}
       p.detail {{ entry.detail }}

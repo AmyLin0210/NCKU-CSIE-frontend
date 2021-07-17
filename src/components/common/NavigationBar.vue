@@ -27,7 +27,7 @@ nav.nav-bar
           :href="`${obj.header.href}?languageId=${currentLanguageId}`"
           @mouseover="currentList = key"
         ) {{obj.header[$root.$i18n.locale].title}}
-        li.dropdown(v-show="key === currentList")
+        li.dropdown(v-if="Object.keys(obj.list).length > 0" v-show="key === currentList")
           a.item(
             v-for="(item, itemKey) in obj.list"
             :key="`nav-item-${key}-${itemKey}`"
