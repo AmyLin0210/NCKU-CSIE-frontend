@@ -85,7 +85,7 @@ export default {
     bottom: 26px;
   }
   min-height: 190px;
-  width: 430px;
+  width: 400px;
 
   // [ skin ]
   text-align: center;

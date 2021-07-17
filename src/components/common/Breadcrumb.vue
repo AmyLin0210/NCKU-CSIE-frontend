@@ -32,7 +32,7 @@ export default {
 
   // [ position ]
   height: 100px;
-  width: 90%;
+  width: 100%;
   margin: {
     left: auto;
     right: auto;

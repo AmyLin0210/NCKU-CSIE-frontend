@@ -3,13 +3,14 @@ banner(
   :title="i18n[currentLanguage].title"
   imageSrc="banner/announcement/index.jpg"
 )
-breadcrumb(
-  :breadcrumbList="[ \
-    {text: i18n[currentLanguage].breadcrumb.home, route: `/?languageId=${currentLanguageId}`}, \
-    {text: i18n[currentLanguage].title, route: `/announcement?languageId=${currentLanguageId}`} \
-  ]"
-)
-entries(:entries="siteInfoByPage( {page: 'announcement',language: currentLanguage,languageId: currentLanguageId})")
+section.content
+  breadcrumb(
+    :breadcrumbList="[ \
+      {text: i18n[currentLanguage].breadcrumb.home, route: `/?languageId=${currentLanguageId}`}, \
+      {text: i18n[currentLanguage].title, route: `/announcement?languageId=${currentLanguageId}`} \
+    ]"
+  )
+  entries(:entries="siteInfoByPage( {page: 'announcement',language: currentLanguage,languageId: currentLanguageId})")
 </template>
 
 <script>
@@ -51,4 +52,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.content {
+  // [ layout ]
+  display: block;
+
+  // [ position ]
+  width: 90%;
+  margin: {
+    left: auto;
+    right: auto;
+  }
+}
 </style>
