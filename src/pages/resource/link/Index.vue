@@ -157,8 +157,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('language', ['currentLanguage', 'currentLanguageId']),
-    ...mapGetters('siteMap', ['siteInfoByPage'])
+    ...mapGetters('language', ['currentLanguage', 'currentLanguageId'])
   }
 }
 </script>

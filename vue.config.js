@@ -32,6 +32,11 @@ module.exports = {
       filename: 'html/research/index.html',
       title: '學術研究'
     },
+    'research/center': {
+      entry: 'src/pages/research/center/main.js',
+      filename: 'html/research/center.html',
+      title: '研究中心'
+    },
     resource: {
       entry: 'src/pages/resource/index/main.js',
       filename: 'html/resource/index.html',
