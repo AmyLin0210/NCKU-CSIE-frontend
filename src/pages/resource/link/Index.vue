@@ -8,7 +8,7 @@ section.content
     :breadcrumbList="[ \
       {text: i18n[currentLanguage].breadcrumb.home, route: `/?languageId=${currentLanguageId}`}, \
       {text: i18n[currentLanguage].breadcrumb.resource, route: `/resource?languageId=${currentLanguageId}`}, \
-      {text: i18n[currentLanguage].title, route: `/resource/resource/link?languageId=${currentLanguageId}`} \
+      {text: i18n[currentLanguage].title, route: `/resource/link?languageId=${currentLanguageId}`} \
     ]"
   )
   entries(:entries="\

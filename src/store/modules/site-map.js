@@ -273,7 +273,7 @@ const state = {
     list: {
       venue: {
         'zh-TW': {
-          title: '教室租借',
+          title: '場地租借',
           detail: '系所租借設備或場地'
         },
         'en-US': {

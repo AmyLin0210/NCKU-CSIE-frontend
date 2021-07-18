@@ -46,6 +46,11 @@ module.exports = {
       entry: 'src/pages/resource/link/main.js',
       filename: 'html/resource/link.html',
       title: '其他連結'
+    },
+    'resource/venue': {
+      entry: 'src/pages/resource/venue/main.js',
+      filename: 'html/resource/venue.html',
+      title: '場地租借'
     }
   },
   devServer: {
