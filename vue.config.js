@@ -37,6 +37,11 @@ module.exports = {
       filename: 'html/research/index.html',
       title: '學術研究'
     },
+    'research/research-group': {
+      entry: 'src/pages/research/research-group/main.js',
+      filename: 'html/research/research-group.html',
+      title: '研究群'
+    },
     'research/center': {
       entry: 'src/pages/research/center/main.js',
       filename: 'html/research/center.html',
