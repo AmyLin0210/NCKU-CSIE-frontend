@@ -17,6 +17,11 @@ module.exports = {
       filename: 'html/about/index.html',
       title: '關於本系'
     },
+    'about/intro': {
+      entry: 'src/pages/about/intro/main.js',
+      filename: 'html/about/intro.html',
+      title: '系所介紹'
+    },
     announcement: {
       entry: 'src/pages/announcement/index/main.js',
       filename: 'html/announcement/index.html',

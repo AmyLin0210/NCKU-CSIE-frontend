@@ -170,7 +170,7 @@ export default {
             'Account number：00903607114-1',
             'Bank of Taiwan, Tainan branch'
           ],
-          type: 'addition'
+          type: 'description'
         },
         {
           'zh-TW': ['若未匯款則視同取消預訂！'],
