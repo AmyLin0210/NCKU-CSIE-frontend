@@ -1,16 +1,11 @@
 <template lang="pug">
 banner(
-  :title="i18n[currentLanguage].title"
+  :title="staticText[currentLanguage].title"
   imageSrc="banner/about/index.jpg"
 )
-section.content
-  breadcrumb(
-    :breadcrumbList="[ \
-      {text: i18n[currentLanguage].breadcrumb.home, route: `/?languageId=${currentLanguageId}`}, \
-      {text: i18n[currentLanguage].title, route: `/about?languageId=${currentLanguageId}`} \
-    ]"
-  )
-  entries(:entries="siteInfoByPage( {page: 'about', language: currentLanguage, languageId: currentLanguageId})")
+section.main
+  breadcrumb(route="/about")
+  entries(:entries="getEntryByTopic({topic: 'about', language: currentLanguage, languageId: currentLanguageId})")
 </template>
 
 <script>
@@ -28,31 +23,27 @@ export default {
   },
   data () {
     return {
-      i18n: {
+      staticText: {
         'zh-TW': {
-          title: '關於本系',
-          breadcrumb: {
-            home: '首頁'
-          }
+          title: '關於本系'
         },
         'en-US': {
-          title: 'About',
-          breadcrumb: {
-            home: 'Home'
-          }
+          title: 'About'
         }
       }
     }
   },
   computed: {
     ...mapGetters('language', ['currentLanguage', 'currentLanguageId']),
-    ...mapGetters('siteMap', ['siteInfoByPage'])
+    ...mapGetters('siteMap', ['getEntryByTopic'])
   }
 }
 </script>
 
 <style scoped lang="scss">
-.content {
+@import "@/assets/scss/break-point.scss";
+
+.main {
   // [ layout ]
   display: block;
 
@@ -61,6 +52,10 @@ export default {
   margin: {
     left: auto;
     right: auto;
+  }
+
+  @media screen and (min-width: $break-point-lg){
+    max-width: 1440;
   }
 }
 </style>

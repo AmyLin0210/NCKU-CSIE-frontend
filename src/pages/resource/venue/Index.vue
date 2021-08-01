@@ -1,17 +1,11 @@
 <template lang="pug">
 banner(
-  :title="i18n[currentLanguage].title"
+  :title="staticText[currentLanguage].title"
   imageSrc="banner/resource/venue.jpg"
 )
 section.content
-  breadcrumb(
-    :breadcrumbList="[ \
-      {text: i18n[currentLanguage].breadcrumb.home, route: `/?languageId=${currentLanguageId}`}, \
-      {text: i18n[currentLanguage].breadcrumb.resource, route: `/resource?languageId=${currentLanguageId}`}, \
-      {text: i18n[currentLanguage].title, route: `/resource/venue?languageId=${currentLanguageId}`} \
-    ]"
-  )
-  topic(:topic="i18n[currentLanguage].title")
+  breadcrumb(route="/resource/venue")
+  topic(:topic="staticText[currentLanguage].title")
   paragraph(:content="content")
   attachment(v-for="attachment in attachments" :attachment="attachment")
 
@@ -36,27 +30,19 @@ export default {
   },
   data () {
     return {
-      i18n: {
+      staticText: {
         'zh-TW': {
-          title: '場地租借',
-          breadcrumb: {
-            home: '首頁',
-            resource: '相關服務'
-          }
+          title: '場地租借'
         },
         'en-US': {
-          title: 'Venue',
-          breadcrumb: {
-            home: 'Home',
-            resource: 'Resources'
-          }
+          title: 'Venue'
         }
       },
       content: [
         {
           'zh-TW': '教室借用系統',
           'en-US': 'Venue System',
-          type: 'title'
+          type: 'heading1'
         },
         {
           'zh-TW': '系統連結',
@@ -67,12 +53,12 @@ export default {
         {
           'zh-TW': '場地設備借用申請須知',
           'en-US': 'Venue Hire instructions',
-          type: 'title'
+          type: 'heading1'
         },
         {
           'zh-TW': '申請資格',
           'en-US': 'Application qualification',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': '政府機關、學校及經登記或立案核准之機構、法人、團體。',
@@ -82,7 +68,7 @@ export default {
         {
           'zh-TW': '申請方式',
           'en-US': 'Application method',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -126,7 +112,7 @@ export default {
         {
           'zh-TW': '申請應備書面資料',
           'en-US': 'Prepare form',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': '場地使用申請表(請參考附加檔案)。',
@@ -136,7 +122,7 @@ export default {
         {
           'zh-TW': '繳費方式',
           'en-US': 'Payment',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -180,7 +166,7 @@ export default {
         {
           'zh-TW': '備註',
           'en-US': 'Remark',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': '電腦教室設還原卡軟體需求請提早聯絡林先生(06)2757575-62500-18',
@@ -212,7 +198,8 @@ export default {
   display: block;
 
   // [ position ]
-  width: 90%;
+  max-width: 1440px;
+  width: 80%;
   margin: {
     left: auto;
     right: auto;

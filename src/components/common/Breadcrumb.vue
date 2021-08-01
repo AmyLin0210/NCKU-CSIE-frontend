@@ -1,24 +1,62 @@
 <template lang="pug">
 nav.breadcrumb
   template(
-    v-for="(obj, idx) in breadcrumbList"
+    v-for="(obj, idx) in breadcrumbList()"
     :key="`breadcrumb-${idx}`"
   )
-    a.link(
-      v-if="idx !== breadcrumbList.length - 1"
-      :href="obj.route"
-    ) {{obj.text}}
-    p.text(v-if="idx === breadcrumbList.length - 1") {{obj.text}}
-    p.arrow(v-if="idx !== breadcrumbList.length - 1")= '>'
+    template(v-if="idx !== breadcrumbList().length - 1")
+      a.link(:href="obj.route") {{obj.text}}
+      img.arrow(src="@/assets/image/icon/arrow.png")
+    p.text(v-else) {{obj.text}}
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'breadcrumb',
   props: {
-    breadcrumbList: {
-      type: Array,
-      required: true
+    route: {
+      type: String
+    }
+  },
+  data () {
+    return {
+      staticText: {
+        'zh-TW': {
+          home: '首頁'
+        },
+        'en-US': {
+          home: 'Home'
+        }
+      }
+    }
+  },
+  computed: {
+    ...mapGetters('language', ['currentLanguageId', 'currentLanguage']),
+    ...mapGetters('siteMap', ['getSiteMap'])
+  },
+  methods: {
+    breadcrumbList () {
+      const pages = this.route.split('/')
+      const query = `?languageId=${this.currentLanguageId}`
+      return pages.map((page, idx) => {
+        if (idx === 0) {
+          return {
+            text: this.staticText[this.currentLanguage].home,
+            href: `/${query}`
+          }
+        } else if (idx === 1) {
+          return {
+            text: this.getSiteMap[page].header[this.currentLanguage].title,
+            href: `/${page}/${query}`
+          }
+        } else {
+          return {
+            text: this.getSiteMap[pages[1]].subclass[page][this.currentLanguage].title,
+            href: `${this.route}/${query}`
+          }
+        }
+      })
     }
   }
 }
@@ -61,7 +99,8 @@ export default {
   display: inline-block;
 
   // [ skin ]
-  width: fit-content;
+  height: 20px;
+  width: auto;
   margin: {
     left: 40px;
     right: 40px;

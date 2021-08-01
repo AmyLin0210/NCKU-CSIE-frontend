@@ -19,7 +19,7 @@ nav.nav-bar
         span.text Information Engineering
   nav.navigation(@mouseleave="currentList = ''")
     template(
-      v-for="(obj, key) in allSiteMap"
+      v-for="(obj, key) in getSiteMap"
       :key="`nav-${key}`"
     )
       ul.list
@@ -27,9 +27,9 @@ nav.nav-bar
           :href="`${obj.header.href}?languageId=${currentLanguageId}`"
           @mouseover="currentList = key"
         ) {{obj.header[$root.$i18n.locale].title}}
-        li.dropdown(v-if="Object.keys(obj.list).length > 0" v-show="key === currentList")
+        li.dropdown(v-if="Object.keys(obj.subclass).length > 0" v-show="key === currentList")
           a.item(
-            v-for="(item, itemKey) in obj.list"
+            v-for="(item, itemKey) in obj.subclass"
             :key="`nav-item-${key}-${itemKey}`"
             :href=" \
               (item.href[0] === '/')?                                    \
@@ -85,7 +85,7 @@ export default {
   computed: {
     ...mapState('language', ['supportedLanguages']),
     ...mapGetters('language', ['currentLanguageId', 'currentLanguage']),
-    ...mapGetters('siteMap', ['allSiteMap', 'siteMapHeader'])
+    ...mapGetters('siteMap', ['getSiteMap'])
   },
   methods: {
     changeLocale (languageId) {

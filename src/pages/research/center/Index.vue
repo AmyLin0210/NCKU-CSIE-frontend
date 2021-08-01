@@ -1,16 +1,10 @@
 <template lang="pug">
 banner(
-  :title="i18n[currentLanguage].title"
+  :title="staticText[currentLanguage].title"
   imageSrc="banner/research/center.jpg"
 )
 section.content
-  breadcrumb(
-    :breadcrumbList="[ \
-      {text: i18n[currentLanguage].breadcrumb.home, route: `/?languageId=${currentLanguageId}`}, \
-      {text: i18n[currentLanguage].breadcrumb.research, route: `/resource?languageId=${currentLanguageId}`}, \
-      {text: i18n[currentLanguage].title, route: `/resource/resource/link?languageId=${currentLanguageId}`} \
-    ]"
-  )
+  breadcrumb(route="/research/center")
   entries(:entries="\
     entries.map((entry)=> {                           \
       return {                                        \
@@ -37,20 +31,12 @@ export default {
   },
   data () {
     return {
-      i18n: {
+      staticText: {
         'zh-TW': {
-          title: '研究中心',
-          breadcrumb: {
-            home: '首頁',
-            research: '學術研究'
-          }
+          title: '研究中心'
         },
         'en-US': {
-          title: 'Center',
-          breadcrumb: {
-            home: 'Home',
-            research: 'Research'
-          }
+          title: 'Center'
         }
       },
       entries: [

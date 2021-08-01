@@ -4,13 +4,7 @@ banner(
   imageSrc="banner/about/intro.jpg"
 )
 section.content
-  breadcrumb(
-    :breadcrumbList="[ \
-      {text: i18n[currentLanguage].breadcrumb.home, route: `/?languageId=${currentLanguageId}`}, \
-      {text: i18n[currentLanguage].breadcrumb.about, route: `/about?languageId=${currentLanguageId}`}, \
-      {text: i18n[currentLanguage].title, route: `/about/intro?languageId=${currentLanguageId}`} \
-    ]"
-  )
+  breadcrumb(route="/about/intro")
   section#intro
     topic(:topic="i18n[currentLanguage].index.intro")
     paragraph(:content="intro")
@@ -59,10 +53,6 @@ export default {
       i18n: {
         'zh-TW': {
           title: '系所介紹',
-          breadcrumb: {
-            home: '首頁',
-            about: '關於本系'
-          },
           index: {
             intro: '系所介紹',
             history: '本系歷史',
@@ -74,10 +64,6 @@ export default {
         },
         'en-US': {
           title: 'Introduction',
-          breadcrumb: {
-            home: 'Home',
-            about: 'About'
-          },
           index: {
             intro: 'Introduction',
             history: 'History',
@@ -157,7 +143,7 @@ export default {
               {
                 'zh-TW': '一、教學方面',
                 'en-US': '1. Teaching Aspects',
-                type: 'subtitle'
+                type: 'heading2'
               },
               {
                 'zh-TW': '主要發展重點在於：',
@@ -223,7 +209,7 @@ export default {
               {
                 'zh-TW': '二、研究方面',
                 'en-US': '2. Researching Aspect',
-                type: 'subtitle'
+                type: 'heading2'
               },
               {
                 'zh-TW': '主要發展重點在於：',
@@ -285,7 +271,7 @@ export default {
               {
                 'zh-TW': '三、國際化方面',
                 'en-US': '3. Global Aspect',
-                type: 'subtitle'
+                type: 'heading2'
               },
               {
                 'zh-TW': '主要發展重點在於：',
@@ -330,7 +316,7 @@ export default {
             {
               'zh-TW': '一、教育學生基礎專業知識及終身學習之能力',
               'en-US': '1. Professional Knowledge and Lifelong Learning Skills',
-              type: 'subtitle'
+              type: 'heading2'
             },
             {
               'zh-TW': [
@@ -351,9 +337,9 @@ export default {
         {
           paragraph: [
             {
-              'zh-TW': '二、教育學生運用專業知識解決資訊應用問題之能力',
+              'zh-TW': '二、教育學生運用專業知識解決問題之能力',
               'en-US': '2. Apply Expertise to Solve Information Application Problems',
-              type: 'subtitle'
+              type: 'heading2'
             },
             {
               'zh-TW': [
@@ -376,7 +362,7 @@ export default {
             {
               'zh-TW': '三、教育學生優質團隊合作之能力',
               'en-US': '3. Coworking with Team',
-              type: 'subtitle'
+              type: 'heading2'
             },
             {
               'zh-TW': [
@@ -399,12 +385,12 @@ export default {
         {
           'zh-TW': '教育目標與核心能力',
           'en-US': 'Educational Objectives and Core Skills',
-          type: 'title'
+          type: 'heading1'
         },
         {
           'zh-TW': '資訊工程學系之教育目標',
           'en-US': 'Educational Objectives (Bachelor)',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': '系所教育目標',
@@ -457,7 +443,7 @@ export default {
         {
           'zh-TW': '資訊工程所之教育目標',
           'en-US': 'Educational Objectives (Master)',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': '系所教育目標',
@@ -510,12 +496,12 @@ export default {
         {
           'zh-TW': '課程設計',
           'en-US': 'Course Design',
-          type: 'title'
+          type: 'heading1'
         },
         {
           'zh-TW': '資訊系課程之組成',
           'en-US': 'Design Principle',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -613,7 +599,7 @@ export default {
         {
           'zh-TW': '十二項資訊技術',
           'en-US': 'Twelve topics',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -649,7 +635,7 @@ export default {
         {
           'zh-TW': '課程發展與改進之流程',
           'en-US': 'Courses Development and Improvement Process',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -708,7 +694,7 @@ export default {
         {
           'zh-TW': '本系課程發展與改進流程圖',
           'en-US': 'Course Development and Improvement Flow Chart',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           src: 'intro/course-improve.png',
@@ -717,7 +703,7 @@ export default {
         {
           'zh-TW': '課程介紹與課程特色',
           'en-US': 'Course development and features',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -796,7 +782,7 @@ export default {
         {
           'zh-TW': '課程地圖',
           'en-US': 'Course Map',
-          type: 'title'
+          type: 'heading1'
         },
         {
           'zh-TW': '課程地圖連結',
@@ -807,12 +793,12 @@ export default {
         {
           'zh-TW': '教學活動評量',
           'en-US': 'Teaching Activities and Evaluation System',
-          type: 'title'
+          type: 'heading1'
         },
         {
           'zh-TW': '教學活動及評量機制',
           'en-US': 'Teaching Activities and Evaluation System',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': ['培養方式'],
@@ -896,12 +882,12 @@ export default {
         {
           'zh-TW': '學習成效追蹤',
           'en-US': 'Learning Result Track',
-          type: 'title'
+          type: 'heading1'
         },
         {
           'zh-TW': '教師評量方法',
           'en-US': 'Professor Evaluation',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -929,7 +915,7 @@ export default {
         {
           'zh-TW': '學生學習成果統計與檢討',
           'en-US': 'Students Learning Result Statics and Review',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -956,7 +942,7 @@ export default {
         {
           'zh-TW': '學習成效持續改善機制',
           'en-US': 'Learning Effectiveness Improvement Mechanism',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -978,7 +964,7 @@ export default {
         {
           'zh-TW': '教學改善機制流程圖',
           'en-US': 'Teaching Improvement Mechanism Flow Chart',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           src: 'intro/teach-improve.png',
@@ -987,7 +973,7 @@ export default {
         {
           'zh-TW': '中華工程教育學會',
           'en-US': 'Institute of Engineering Education Taiwan',
-          type: 'title'
+          type: 'heading1'
         },
         {
           'zh-TW': '中華工程教育學會連結',
@@ -1000,7 +986,7 @@ export default {
         {
           'zh-TW': '硬體介紹',
           'en-US': 'Hardware',
-          type: 'title'
+          type: 'heading1'
         },
         {
           src: 'intro/equipment_8.jpg',
@@ -1037,7 +1023,7 @@ export default {
         {
           'zh-TW': '軟體介紹',
           'en-US': 'Software',
-          type: 'title'
+          type: 'heading1'
         },
         {
           'zh-TW': '國立成功大學校園授權軟體',
@@ -1055,12 +1041,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "@/assets/scss/break-point.scss";
+
 .content {
   // [ layout ]
   display: block;
 
   // [ position ]
-  width: 90%;
+  max-width: 1440px;
+  width: 80%;
   margin: {
     left: auto;
     right: auto;
@@ -1071,15 +1060,27 @@ export default {
 .education-block {
   // [ layout ]
   display: grid;
-  grid-template: {
-    areas: 'paragraph image';
-    columns: 50% 50%;
-  };
+
+  grid-template-areas:
+    'paragraph'
+    'image';
+
   align-items: center;
 
   // [ position ]
   width: 100%;
   height: fit-content;
+
+  grid-template-areas:
+    'paragraph'
+    'image';
+
+  @media screen and (min-width: $break-point-lg){
+    grid-template: {
+      areas: 'paragraph image';
+      columns: 50% 50%;
+    };
+  }
 
   > .education-paragraph {
     // [ lauout ]
@@ -1093,8 +1094,13 @@ export default {
     justify-self: center;
 
     // [ position ]
-    width: auto;
-    height: 200px;
+    width: 80%;
+    max-width: 500px;
+    height: auto;
+
+    @media screen and (min-width: $break-point-lg){
+      max-width: none;
+    }
   }
 }
 
@@ -1105,18 +1111,34 @@ export default {
 
   &-left {
     // [ layout ]
-    grid-template: {
-      areas: 'paragraph image';
-      columns: 1fr 1fr;
-    };
+    grid-template-areas:
+      'paragraph'
+      'image';
   }
 
   &-right {
     // [ layout ]
-    grid-template: {
-      areas: 'image paragraph';
-      columns: 1fr 1fr;
-    };
+    grid-template-areas:
+      'paragraph'
+      'image';
+  }
+
+  @media screen and (min-width: $break-point-lg){
+    &-left {
+      // [ layout ]
+      grid-template: {
+        areas: 'paragraph image';
+        columns: 1fr 1fr;
+      };
+    }
+
+    &-right {
+      // [ layout ]
+      grid-template: {
+        areas: 'image paragraph';
+        columns: 1fr 1fr;
+      };
+    }
   }
 
   > .develop-paragraph {
@@ -1132,7 +1154,12 @@ export default {
 
     // [ position ]
     width: 80%;
+    max-width: 500px;
     height: auto;
+
+    @media screen and (min-width: $break-point-lg){
+      max-width: none;
+    }
   }
 }
 </style>

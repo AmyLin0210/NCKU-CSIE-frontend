@@ -122,7 +122,7 @@ export default {
   name: 'content',
   data () {
     return {
-      i18n: {
+      staticText: {
         'zh-TW': {
           title: '頁面不存在'
         },

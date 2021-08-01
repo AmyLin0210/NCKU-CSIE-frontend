@@ -1,5 +1,5 @@
 <template lang="pug">
-p {{i18n[currentLanguage].title}}
+p {{staticText[currentLanguage].title}}
 </template>
 
 <script>
@@ -9,7 +9,7 @@ export default {
   name: 'content',
   data () {
     return {
-      i18n: {
+      staticText: {
         'zh-TW': {
           title: '首頁'
         },

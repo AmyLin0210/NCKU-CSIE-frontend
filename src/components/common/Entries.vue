@@ -10,7 +10,8 @@ section.entries
       :target="(entry.href[0] === '/')? '': '_blank'"
     )
       h3.title {{ entry.title }}
-      p.detail {{ entry.detail }}
+      article.detail-block
+        p(v-for="(text, idx) in entry.detail" :key="`detail-${idx}`").detail {{ text }}
 
 </template>
 
@@ -19,9 +20,12 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'entries',
-  props: [
-    'entries'
-  ],
+  props: {
+    entries: {
+      type: Array,
+      required: true
+    }
+  },
   data () {
     return {
       color: [
@@ -143,26 +147,31 @@ export default {
   }
 }
 
-.detail {
+.detail-block{
   // [ layout ]
   display: block;
-  text-align: center;
   margin: {
     top: 20px;
-    left: 70px;
-    right: 70px;
+    left: 50px;
+    right: 50px;
     bottom: 40px;
   }
-  line-height: 20px;
-  white-space: normal;
-  word: {
-    break: normal;
-    wrap: normal;
-  };
 
-  // [ skin ]
-  color: #757575;
-  background-color: transparent;
-  font-size: 16px;
+  > .detail {
+    // [ layout ]
+    display: inline-block;
+    text-align: center;
+    line-height: 20px;
+    white-space: normal;
+    word: {
+      break: normal;
+      wrap: normal;
+    };
+
+    // [ skin ]
+    color: #757575;
+    background-color: transparent;
+    font-size: 16px;
+  }
 }
 </style>

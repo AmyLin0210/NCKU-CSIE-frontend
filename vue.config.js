@@ -22,6 +22,11 @@ module.exports = {
       filename: 'html/about/intro.html',
       title: '系所介紹'
     },
+    'about/contact': {
+      entry: 'src/pages/about/contact/main.js',
+      filename: 'html/about/contact.html',
+      title: '聯絡我們'
+    },
     announcement: {
       entry: 'src/pages/announcement/index/main.js',
       filename: 'html/announcement/index.html',
@@ -37,9 +42,9 @@ module.exports = {
       filename: 'html/research/index.html',
       title: '學術研究'
     },
-    'research/research-group': {
-      entry: 'src/pages/research/research-group/main.js',
-      filename: 'html/research/research-group.html',
+    'research/researchGroup': {
+      entry: 'src/pages/research/researchGroup/main.js',
+      filename: 'html/research/researchGroup.html',
       title: '研究群'
     },
     'research/center': {

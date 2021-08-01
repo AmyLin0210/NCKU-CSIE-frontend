@@ -1,17 +1,11 @@
 <template lang="pug">
 banner(
-  :title="i18n[currentLanguage].title"
+  :title="staticText[currentLanguage].title"
   imageSrc="banner/research/research-group.jpg"
 )
 section.content
-  breadcrumb(
-    :breadcrumbList="[ \
-      {text: i18n[currentLanguage].breadcrumb.home, route: `/?languageId=${currentLanguageId}`}, \
-      {text: i18n[currentLanguage].breadcrumb.research, route: `/research?languageId=${currentLanguageId}`}, \
-      {text: i18n[currentLanguage].title, route: `/research/research-group?languageId=${currentLanguageId}`} \
-    ]"
-  )
-  topic(:topic="i18n[currentLanguage].title")
+  breadcrumb(route="/research/researchGroup")
+  topic(:topic="staticText[currentLanguage].title")
   paragraph(:content="content")
 
 </template>
@@ -33,32 +27,24 @@ export default {
   },
   data () {
     return {
-      i18n: {
+      staticText: {
         'zh-TW': {
-          title: '研究群',
-          breadcrumb: {
-            home: '首頁',
-            research: '學術研究'
-          }
+          title: '研究群'
         },
         'en-US': {
-          title: 'Research Group',
-          breadcrumb: {
-            home: 'Home',
-            research: 'Research'
-          }
+          title: 'Research Group'
         }
       },
       content: [
         {
           'zh-TW': '1. 數位生活科技與軟體技術',
           'en-US': '1. E-life Digital Technology and Software Technology',
-          type: 'title'
+          type: 'heading1'
         },
         {
           'zh-TW': '1.1 數位生活科技',
           'en-US': '1.1 E-life Digital Technology',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -80,7 +66,7 @@ export default {
         {
           'zh-TW': '1.2 軟體工程',
           'en-US': '1.2 Software Engineering',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -96,7 +82,7 @@ export default {
         {
           'zh-TW': '1.3 量子資訊、網路安全、演算法',
           'en-US': '1.3 Quantum Information, Network Security, and Algorithms',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -114,12 +100,12 @@ export default {
         {
           'zh-TW': '2.計算、通訊與網路',
           'en-US': '2. Computation, Communication and Network',
-          type: 'title'
+          type: 'heading1'
         },
         {
           'zh-TW': '2.1 高速網路、多媒體串流',
           'en-US': '2.1 High Speed Network, and Multimedia Streaming',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -147,7 +133,7 @@ export default {
         {
           'zh-TW': '2.2 無線通訊、行動寬頻網路',
           'en-US': '2.2 Wireless Communications, and Mobile Broadband Network',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -169,7 +155,7 @@ export default {
         {
           'zh-TW': '2.3 雲端計算、高效能計算',
           'en-US': '2.3 Cloud Computing, and High Performance Computing',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -195,12 +181,12 @@ export default {
         {
           'zh-TW': '3.資料與知識工程',
           'en-US': '3. Data and Knowledge Engineering',
-          type: 'title'
+          type: 'heading1'
         },
         {
           'zh-TW': '3.1 資料探勘、行動運算、網際網路與社群網路',
           'en-US': '3.1 Data Mining, Mobile Data Management, and Web and Social Network',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -222,7 +208,7 @@ export default {
         {
           'zh-TW': '3.2 知識工程與管理、資料庫管理系統',
           'en-US': '3.2 Knowledge Engineering and Management, and Database Management System',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -238,12 +224,12 @@ export default {
         {
           'zh-TW': '4.多媒體',
           'en-US': '4. Multimedia',
-          type: 'title'
+          type: 'heading1'
         },
         {
           'zh-TW': '4.1 信號處理、影像處理',
           'en-US': '4.1 Signal Processing, and Image Processing',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -273,7 +259,7 @@ export default {
         {
           'zh-TW': '4.2 電腦視覺、電腦繪圖',
           'en-US': '4.2 Computer Vision,and Computer Graphics',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -293,7 +279,7 @@ export default {
         {
           'zh-TW': '4.3 人工智慧、機器學習與圖形辨識、語音辨識、人機互動、多媒體雲端計算',
           'en-US': '4.3 Artificial Intelligent, Machine Learning and Pattern Recognition,Speech Recognition, Human-Computer Interaction, and Multimedia Cloud Computing',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -315,12 +301,12 @@ export default {
         {
           'zh-TW': '5.架構與嵌入式系統',
           'en-US': '5.Architecture and Embedded System',
-          type: 'title'
+          type: 'heading1'
         },
         {
           'zh-TW': '5.1 單晶片、嵌入式系統',
           'en-US': '5.1 SoC, and Embedded System',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -348,7 +334,7 @@ export default {
         {
           'zh-TW': '5.2 結構與系統',
           'en-US': '5.2 Architecture and System',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -372,7 +358,7 @@ export default {
         {
           'zh-TW': '5.3 設計自動化',
           'en-US': '5.3 Design Automation',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -390,12 +376,12 @@ export default {
         {
           'zh-TW': '6.生醫工程',
           'en-US': '6.Biomedical Engineering',
-          type: 'title'
+          type: 'heading1'
         },
         {
           'zh-TW': '6.1 生物資訊、生醫資訊檢索、生醫智慧系統',
           'en-US': '6.1 Bioinformatics, Biomedical Information Retrieval, and Intelligent System of Biomedicine',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -421,7 +407,7 @@ export default {
         {
           'zh-TW': '6.2 生醫訊號處理、生醫影像處理、醫學影像系統',
           'en-US': '6.2 Biomedical Signal Processing, Biomedical Imaging Processing, and Medical Imaging Instrument',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -451,7 +437,7 @@ export default {
         {
           'zh-TW': '6.3 生醫資訊系統、醫用人機介面設計、生醫資訊網路、生醫檢測晶片設計',
           'en-US': '6.3 Information System Design for Biomedicine, Human-Machine Interface Design for Biomedicine, Network Application for Biomedicine, and Biochips Design and Applications',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -477,12 +463,12 @@ export default {
         {
           'zh-TW': '7.製造工程',
           'en-US': '7.Manufacturing Engineering',
-          type: 'title'
+          type: 'heading1'
         },
         {
           'zh-TW': '7.1 製造系統與管理—製造管理、半導體生產自動化、智慧型製造系統',
           'en-US': '7.1 Manufacturing Systems and Management—Manufacturing Management, Semiconductor Production and Automation, and Intelligent Manufacturing Systems',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -498,7 +484,7 @@ export default {
         {
           'zh-TW': '7.2 E化製造、資訊與機電整合、半導體生產自動化',
           'en-US': '7.2 E-Manufacturing, Information and Mechatronics,and Semiconductor Manufacturing Automation',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -514,7 +500,7 @@ export default {
         {
           'zh-TW': '7.3 商業智慧、製造演算法、整合製造資訊系統、醫院自動化資訊系統',
           'en-US': '7.3 Business Intelligence, Manufacturing Algorithm, Integrated Manufacturing Database System, and Hospital Automations and Information Systems',
-          type: 'subtitle'
+          type: 'heading2'
         },
         {
           'zh-TW': [
@@ -546,7 +532,8 @@ export default {
   display: block;
 
   // [ position ]
-  width: 90%;
+  max-width: 1440px;
+  width: 80%;
   margin: {
     left: auto;
     right: auto;

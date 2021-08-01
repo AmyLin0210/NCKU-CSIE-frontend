@@ -1,8 +1,6 @@
 <template lang="pug">
 section.banner
-  img.image(
-    :src="require(`@/assets/image/${imageSrc}`)"
-  )
+  img.image(:src="require(`@/assets/image/${imageSrc}`)")
   h1.text {{title}}
 </template>
 
