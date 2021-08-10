@@ -1,66 +1,67 @@
 <template lang="pug">
 nav.nav-bar
-  a.logo(href="/")
-    img.image(
-      src="@/assets/image/logo/csie-small.png"
-      alt="csie logo"
-    )
-    section.caption(href="/")
-      article.title
-        span.text 成功大學
-        span.text 資訊工程學系
-        span.text 暨
-        span.text 研究所
-      article.subtitle
-        span.text Department
-        span.text of
-        span.text Computer Science
-        span.text and
-        span.text Information Engineering
-  nav.navigation(@mouseleave="currentList = ''")
-    template(
-      v-for="(obj, key) in getSiteMap"
-      :key="`nav-${key}`"
-    )
-      ul.list
-        a.header(
-          :href="`${obj.header.href}?languageId=${currentLanguageId}`"
-          @mouseover="currentList = key"
-        ) {{obj.header[$root.$i18n.locale].title}}
-        li.dropdown(v-if="Object.keys(obj.subclass).length > 0" v-show="key === currentList")
-          a.item(
-            v-for="(item, itemKey) in obj.subclass"
-            :key="`nav-item-${key}-${itemKey}`"
-            :href=" \
-              (item.href[0] === '/')?                                    \
-              `${item.href}?languageId=${currentLanguageId}` : item.href \
-            "
-          ) {{item[$root.$i18n.locale].title}}
-  section.tools
-    a.login(href="/auth/login")
-      img.image(src="@/assets/image/icon/user.png")
-      span.button {{i18n[currentLanguage].login}}
-    img.search(src="@/assets/image/icon/search.png")
-    section.langs
-      //- v-bind evaluate the expression at runtime,
-      //- but the path aliasing is complete in compile time.
-      //- To access static file via dynamic pathname,
-      //- use `require()` to get the compiled module.
-      //- Reference: https://github.com/vuejs/vue-loader/issues/896
+  section.large(:class="{active: scroll.class.isActive, fixed: scroll.class.isFixed}")
+    a.logo(href="/")
       img.image(
-        :src="require(`@/assets/image/icon/flag-${currentLanguageId}.png`)"
-        @click="isShowLangs = !isShowLangs"
+        src="@/assets/image/logo/csie-small.png"
+        alt="csie logo"
       )
-      ul.dropdown(v-show="isShowLangs")
-        template(
-          v-for="(language, key) in supportedLanguages"
-          :key="`dropdown-langs-${key}`"
+      section.caption(href="/")
+        article.title
+          span.text 成功大學
+          span.text 資訊工程學系
+          span.text 暨
+          span.text 研究所
+        article.subtitle
+          span.text Department
+          span.text of
+          span.text Computer Science
+          span.text and
+          span.text Information Engineering
+    nav.navigation(@mouseleave="currentList = ''")
+      template(
+        v-for="(obj, key) in getSiteMap"
+        :key="`nav-${key}`"
+      )
+        ul.list
+          a.header(
+            :href="`${obj.header.href}?languageId=${currentLanguageId}`"
+            @mouseover="currentList = key"
+          ) {{obj.header[$root.$i18n.locale].title}}
+          li.dropdown(v-if="Object.keys(obj.subclass).length > 0" v-show="key === currentList")
+            a.item(
+              v-for="(item, itemKey) in obj.subclass"
+              :key="`nav-item-${key}-${itemKey}`"
+              :href=" \
+                (item.href[0] === '/')?                                    \
+                `${item.href}?languageId=${currentLanguageId}` : item.href \
+              "
+            ) {{item[$root.$i18n.locale].title}}
+    section.tools
+      a.login(href="/auth/login")
+        img.image(src="@/assets/image/icon/user.png")
+        span.button {{i18n[currentLanguage].login}}
+      img.search(src="@/assets/image/icon/search.png")
+      section.langs
+        //- v-bind evaluate the expression at runtime,
+        //- but the path aliasing is complete in compile time.
+        //- To access static file via dynamic pathname,
+        //- use `require()` to get the compiled module.
+        //- Reference: https://github.com/vuejs/vue-loader/issues/896
+        img.image(
+          :src="require(`@/assets/image/icon/flag-${currentLanguageId}.png`)"
+          @click="isShowLangs = !isShowLangs"
         )
-          li.item(
-            @click="changeLocale(key)"
+        ul.dropdown(v-show="isShowLangs")
+          template(
+            v-for="(language, key) in supportedLanguages"
+            :key="`dropdown-langs-${key}`"
           )
-            img.flag(:src="require(`/src/assets/image/icon/flag-${key}.png`)")
-            span.content {{ language.name }}
+            li.item(
+              @click="changeLocale(key)"
+            )
+              img.flag(:src="require(`/src/assets/image/icon/flag-${key}.png`)")
+              span.content {{ language.name }}
 </template>
 
 <script>
@@ -79,8 +80,18 @@ export default {
         }
       },
       currentList: '',
-      isShowLangs: false
+      isShowLangs: false,
+      scroll: {
+        prevPos: 0,
+        class: {
+          isActive: false,
+          isFixed: false
+        }
+      }
     }
+  },
+  created () {
+    window.addEventListener('scroll', this.scrollEvent)
   },
   computed: {
     ...mapState('language', ['supportedLanguages']),
@@ -92,13 +103,31 @@ export default {
       const params = new URLSearchParams(window.location.search)
       params.set('languageId', languageId)
       window.location.assign(`${window.location.pathname}?${params.toString()}`)
+    },
+    scrollEvent () {
+      const prevScrollpos = this.scroll.prevPos
+      const currentScrollPos = window.pageYOffset
+
+      if (prevScrollpos < currentScrollPos && currentScrollPos > 70) {
+        this.scroll.class.isActive = true
+      } else {
+        this.scroll.class.isActive = false
+      }
+
+      if (currentScrollPos > 70) {
+        this.scroll.class.isFixed = true
+      } else {
+        this.scroll.class.isFixed = false
+      }
+
+      this.scroll.prevPos = currentScrollPos
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-.nav-bar {
+.large {
   // [ layout ]
   position: fixed;
   text-align: left;
@@ -115,6 +144,317 @@ export default {
   background-color: #ffffff;
   padding-right: 10px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+
+  // [ transition ]
+  transition: top .5s;
+
+  &.active {
+    // [ position ]
+    top: -70px;
+  }
+
+  &.fixed {
+    position: fixed;
+  }
+
+  .navigation {
+    // [ variable ]
+    $border-height: 20px;
+    $item-width: 320px;
+    $item-height: 50px + $border-height;
+    $font-size: 16px;
+
+    // [ position ]
+    z-index: 2;
+
+    // [ layout ]
+    display: flex;
+    align-items: center;
+    overflow-y: visible;
+
+    // [ skin ]
+    width: auto;
+    background-color: transparent;
+    height: 100%;
+
+    // [ animation ]
+    transition: right 0.5s;
+
+    > .list {
+      // [ position ]
+      position: static;
+
+      // [ layout ]
+      display: inline-flex;
+      align-items: center;
+
+      // [ skin ]
+      width: auto;
+      height: 44px;
+
+      &:hover {
+        // [ skin ]
+        background-color: #ededed;
+      }
+
+      > .header {
+        // [ position ]
+        // This style is set to put `.item__link` above `.item__switch`.
+        position: relative;
+        z-index: 5;
+
+        // [ layout ]
+        display: inline-flex;
+        line-height: $font-size;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+
+        // [ skin ]
+        width: auto;
+        min-width: 87px;
+        height: 100%;
+        color: #adacad;
+        background-color: transparent;
+        font: {
+          size: $font-size;
+          style: normal;
+          weight: normal;
+        }
+      }
+
+      > .dropdown {
+        // [ position ]
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 70px;
+        z-index: 4;
+
+        // [ layout ]
+        display: block;
+        text-align: center;
+
+        // [ skin ]
+        max-height: 10000px;
+        width: 100%;
+        height: 80px;
+        background-color: #213262;
+
+        > .item {
+          // [ layout ]
+          display: inline-block;
+          margin: 0;
+          vertical-align: middle;
+          line-height: $font-size;
+
+          // [ skin ]
+          min-width: 115px;
+          width: auto;
+          height: 80px;
+          border: {
+            color: transparent;
+            style: solid;
+            top-width: 14px;
+            bottom-width: 14px;
+            left-width: 0;
+          }
+          background-color: #213262;
+
+          // [ skin ]
+          padding: {
+            top: 18px;
+            bottom: 18px;
+            left: 25px;
+            right: 25px;
+          }
+          color: #ffffff;
+          font: {
+            size: $font-size;
+            style: normal;
+            weight: normal;
+          }
+
+          &:hover {
+            // [ skin ]
+            background-color: #1d2d56;
+          }
+        }
+      }
+    }
+  }
+
+  .tools {
+    // [ position ]
+    position: absolute;
+    right: 8px;
+
+    // [ layout ]
+    display: flex;
+    align-items: center;
+
+    > .login {
+      // [ layout ]
+      display: inline-block;
+      vertical-align: top;
+
+      // [ skin ]
+      width: 105px;
+      height: 36.15px;
+      line-height: 36.15px;
+      background-color: #213262;
+      box-shadow: 0 0.06rem 0.06rem 0 rgba(0, 0, 0, 0.24),
+        0 0 2px 0 rgba(0, 0, 0, 0.12);
+      font: {
+        size: 14px;
+        weight: 500;
+      }
+      color: #ffffff;
+
+      > .image {
+        // [ layout ]
+        display: inline-block;
+        vertical-align: middle;
+        margin: {
+          right: 14.4px;
+          left: 14.4px;
+        }
+        width: 22px;
+        height: 21px;
+
+        // [ skin ]
+        max: {
+          width: 22px;
+          height: 22px;
+        }
+        border-radius: 50%;
+        background: {
+          size: 21.1px;
+          repeat: no-repeat;
+        }
+        filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(49deg)
+          brightness(101%) contrast(101%);
+      }
+
+      > .button {
+        // [ layout ]
+        display: inline-block;
+        vertical-align: top;
+
+        // [ skin ]
+        line-height: 36.15px;
+        width: auto;
+        height: 36.15px;
+        font: {
+          size: 14px;
+          weight: 500;
+        }
+        color: #ffffff;
+      }
+    }
+
+    > .search {
+      // [ layout ]
+      display: inline-block;
+      vertical-align: top;
+      margin: {
+        left: 24px;
+        top: 6px;
+        bottom: 6px;
+      }
+
+      // [ skin ]
+      height: 24px;
+      width: 24px;
+      background-color: #ffffff;
+      cursor: pointer;
+    }
+
+    > .langs {
+      // [ layout ]
+      display: inline-flex;
+      vertical-align: top;
+      margin: {
+        left: 24px;
+        top: 6px;
+        bottom: 6px;
+      }
+
+      // [ skin ]
+      height: 24px;
+      width: 24px;
+      cursor: pointer;
+      background-color: #ffffff;
+
+      > .image {
+        // [ skin ]
+        height: 24px;
+        width: 24px;
+      }
+
+      > .dropdown {
+        // [ position ]
+        top: 32px;
+        left: -128px;
+        z-index: 1;
+
+        // [ layout ]
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+
+        // [ skin ]
+        height: 82px;
+        min-width: 128px;
+        background-color: #1a284d;
+        box-shadow: 0 1px 2px 0 rgba( 0, 0, 0, .25 );
+        font-size: 16px;
+        color: #ffffff;
+
+        &::before {
+          // [ layout ]
+          display: inline;
+          position: absolute;
+          top: -9.6px;
+          right: 9.6px;
+
+          // [ skin ]
+          content: '';
+          border: {
+            width: 4.8px;
+            style: solid;
+            top-color: transparent;
+            right-color: transparent;
+            bottom-color: #1a284d;
+            left-color: transparent;
+          }
+        }
+
+        > .item {
+          // [ layout ]
+          display: flex;
+          align-items: center;
+          padding-left: 25.6px;
+
+          // [ skin ]
+          height: 41px;
+          width: 100%;
+
+          > .flag {
+            // [ layout ]
+            display: inline-block;
+            margin-right: 16px;
+
+            // [ position ]
+            width: 21.1px;
+            height: 21.1px;
+          }
+        }
+      }
+    }
+  }
 }
 
 .logo {
@@ -213,305 +553,6 @@ export default {
           size: 12px;
           style: normal;
           weight: normal;
-        }
-      }
-    }
-  }
-}
-
-.navigation {
-  // [ variable ]
-  $border-height: 20px;
-  $item-width: 320px;
-  $item-height: 50px + $border-height;
-  $font-size: 16px;
-
-  // [ position ]
-  z-index: 2;
-
-  // [ layout ]
-  display: flex;
-  align-items: center;
-  overflow-y: visible;
-
-  // [ skin ]
-  width: auto;
-  background-color: transparent;
-  height: 100%;
-
-  // [ animation ]
-  transition: right 0.5s;
-
-  > .list {
-    // [ position ]
-    position: static;
-
-    // [ layout ]
-    display: inline-flex;
-    align-items: center;
-
-    // [ skin ]
-    width: auto;
-    height: 44px;
-
-    &:hover {
-      // [ skin ]
-      background-color: #ededed;
-    }
-
-    > .header {
-      // [ position ]
-      // This style is set to put `.item__link` above `.item__switch`.
-      position: relative;
-      z-index: 5;
-
-      // [ layout ]
-      display: inline-flex;
-      line-height: $font-size;
-      text-align: center;
-      align-items: center;
-      justify-content: center;
-
-      // [ skin ]
-      width: auto;
-      min-width: 87px;
-      height: 100%;
-      color: #adacad;
-      background-color: transparent;
-      font: {
-        size: $font-size;
-        style: normal;
-        weight: normal;
-      }
-    }
-
-    > .dropdown {
-      // [ position ]
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 70px;
-      z-index: 4;
-
-      // [ layout ]
-      display: block;
-      text-align: center;
-
-      // [ skin ]
-      max-height: 10000px;
-      width: 100%;
-      height: 80px;
-      background-color: #213262;
-
-      > .item {
-        // [ layout ]
-        display: inline-block;
-        margin: 0;
-        vertical-align: middle;
-        line-height: $font-size;
-
-        // [ skin ]
-        min-width: 115px;
-        width: auto;
-        height: 80px;
-        border: {
-          color: transparent;
-          style: solid;
-          top-width: 14px;
-          bottom-width: 14px;
-          left-width: 0;
-        }
-        background-color: #213262;
-
-        // [ skin ]
-        padding: {
-          top: 18px;
-          bottom: 18px;
-          left: 25px;
-          right: 25px;
-        }
-        color: #ffffff;
-        font: {
-          size: $font-size;
-          style: normal;
-          weight: normal;
-        }
-
-        &:hover {
-          // [ skin ]
-          background-color: #1d2d56;
-        }
-      }
-    }
-  }
-}
-
-.tools {
-  // [ position ]
-  position: absolute;
-  right: 8px;
-
-  // [ layout ]
-  display: flex;
-  align-items: center;
-
-  > .login {
-    // [ layout ]
-    display: inline-block;
-    vertical-align: top;
-
-    // [ skin ]
-    width: 105px;
-    height: 36.15px;
-    line-height: 36.15px;
-    background-color: #213262;
-    box-shadow: 0 0.06rem 0.06rem 0 rgba(0, 0, 0, 0.24),
-      0 0 2px 0 rgba(0, 0, 0, 0.12);
-    font: {
-      size: 14px;
-      weight: 500;
-    }
-    color: #ffffff;
-
-    > .image {
-      // [ layout ]
-      display: inline-block;
-      vertical-align: middle;
-      margin: {
-        right: 14.4px;
-        left: 14.4px;
-      }
-      width: 22px;
-      height: 21px;
-
-      // [ skin ]
-      max: {
-        width: 22px;
-        height: 22px;
-      }
-      border-radius: 50%;
-      background: {
-        size: 21.1px;
-        repeat: no-repeat;
-      }
-      filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(49deg)
-        brightness(101%) contrast(101%);
-    }
-
-    > .button {
-      // [ layout ]
-      display: inline-block;
-      vertical-align: top;
-
-      // [ skin ]
-      line-height: 36.15px;
-      width: auto;
-      height: 36.15px;
-      font: {
-        size: 14px;
-        weight: 500;
-      }
-      color: #ffffff;
-    }
-  }
-
-  > .search {
-    // [ layout ]
-    display: inline-block;
-    vertical-align: top;
-    margin: {
-      left: 24px;
-      top: 6px;
-      bottom: 6px;
-    }
-
-    // [ skin ]
-    height: 24px;
-    width: 24px;
-    background-color: #ffffff;
-    cursor: pointer;
-  }
-
-  > .langs {
-    // [ layout ]
-    display: inline-flex;
-    vertical-align: top;
-    margin: {
-      left: 24px;
-      top: 6px;
-      bottom: 6px;
-    }
-
-    // [ skin ]
-    height: 24px;
-    width: 24px;
-    cursor: pointer;
-    background-color: #ffffff;
-
-    > .image {
-      // [ skin ]
-      height: 24px;
-      width: 24px;
-    }
-
-    > .dropdown {
-      // [ position ]
-      top: 32px;
-      left: -128px;
-      z-index: 1;
-
-      // [ layout ]
-      display: flex;
-      position: relative;
-      flex-direction: column;
-      align-content: center;
-      justify-content: center;
-
-      // [ skin ]
-      height: 82px;
-      min-width: 128px;
-      background-color: #1a284d;
-      box-shadow: 0 1px 2px 0 rgba( 0, 0, 0, .25 );
-      font-size: 16px;
-      color: #ffffff;
-
-      &::before {
-        // [ layout ]
-        display: inline;
-        position: absolute;
-        top: -9.6px;
-        right: 9.6px;
-
-        // [ skin ]
-        content: '';
-        border: {
-          width: 4.8px;
-          style: solid;
-          top-color: transparent;
-          right-color: transparent;
-          bottom-color: #1a284d;
-          left-color: transparent;
-        }
-      }
-
-      > .item {
-        // [ layout ]
-        display: flex;
-        align-items: center;
-        padding-left: 25.6px;
-
-        // [ skin ]
-        height: 41px;
-        width: 100%;
-
-        > .flag {
-          // [ layout ]
-          display: inline-block;
-          margin-right: 16px;
-
-          // [ position ]
-          width: 21.1px;
-          height: 21.1px;
         }
       }
     }

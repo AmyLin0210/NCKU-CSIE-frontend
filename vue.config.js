@@ -66,6 +66,11 @@ module.exports = {
       entry: 'src/pages/resource/venue/main.js',
       filename: 'html/resource/venue.html',
       title: '場地租借'
+    },
+    'resource/sitemap': {
+      entry: 'src/pages/resource/sitemap/main.js',
+      filename: 'html/resource/sitemap.html',
+      title: '網站地圖'
     }
   },
   devServer: {

@@ -107,12 +107,12 @@ h3 {
   width: 100%;
   height: fit-content;
   margin: {
-    top: $large-margin;
-    bottom: $large-margin;
+    top: $median-margin;
+    bottom: $median-margin;
   }
 
   // [ skin ]
-  line-height: 24px;
+  line-height: 30px;
   color: #399dff;
   font: {
     weight: 500;
