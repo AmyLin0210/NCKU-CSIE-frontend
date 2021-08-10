@@ -1,24 +1,25 @@
 <template lang="pug">
-nav.nav-bar
-  section.large(:class="{active: scroll.class.isActive, fixed: scroll.class.isFixed}")
-    a.logo(href="/")
-      img.image(
-        src="@/assets/image/logo/csie-small.png"
-        alt="csie logo"
-      )
-      section.caption(href="/")
-        article.title
-          span.text 成功大學
-          span.text 資訊工程學系
-          span.text 暨
-          span.text 研究所
-        article.subtitle
-          span.text Department
-          span.text of
-          span.text Computer Science
-          span.text and
-          span.text Information Engineering
-    nav.navigation(@mouseleave="currentList = ''")
+nav.nav-bar(:class="{active: bar.isActive, fixed: bar.isFixed}")
+  a.logo(href="/")
+    img.image(
+      src="@/assets/image/logo/csie-small.png"
+      alt="csie logo"
+    )
+    section.caption(href="/")
+      article.title
+        span.text 成功大學
+        span.text 資訊工程學系
+        span.text 暨
+        span.text 研究所
+      article.subtitle
+        span.text Department
+        span.text of
+        span.text Computer Science
+        span.text and
+        span.text Information Engineering
+  // When mouse leave large-menu DOM, hide the list of the topic
+  section.large-menu(@mouseleave="currentList = ''")
+    nav.navigation
       template(
         v-for="(obj, key) in getSiteMap"
         :key="`nav-${key}`"
@@ -62,6 +63,67 @@ nav.nav-bar
             )
               img.flag(:src="require(`/src/assets/image/icon/flag-${key}.png`)")
               span.content {{ language.name }}
+  section.small-menu
+    img.menu(
+      src="@/assets/image/icon/menu.png"
+      @click="showMenu = true"
+    )
+    nav.navigation(:class="{active: showMenu}")
+      section.close
+        img(
+          src="@/assets/image/icon/close.png"
+          @click="\
+            currentList = ''; \
+            showMenu = false;\
+          "
+        )
+      template(
+        v-for="(obj, key) in getSiteMap"
+        :key="`small-nav-${key}`"
+      )
+        section.topic
+          a.text(
+            :href="`${obj.header.href}?languageId=${currentLanguageId}`"
+          ) {{obj.header[$root.$i18n.locale].title}}
+          img.more(
+            src="@/assets/image/icon/arrow.png"
+            :class="{active: key === currentList}"
+            v-if="Object.keys(obj.subclass).length > 0"
+            @click="currentList = (key === currentList) ? '' : key"
+          )
+        ul.list(
+          v-if="Object.keys(obj.subclass).length > 0"
+          :class="{active: key === currentList}"
+        )
+          a.item(
+            v-for="(item, itemKey) in obj.subclass"
+            :key="`small-nav-item-${key}-${itemKey}`"
+            :href=" \
+              (item.href[0] === '/')?                                    \
+              `${item.href}?languageId=${currentLanguageId}` : item.href \
+            "
+          ) {{item[$root.$i18n.locale].title}}
+      a.login(:href="`/auth/login?languageId=${currentLanguageId}`")
+        img(src="@/assets/image/icon/user.png")
+        p {{i18n[currentLanguage].login}}
+      section.language
+        article.content
+          img.flag(:src="require(`@/assets/image/icon/flag-${currentLanguageId}.png`)")
+          p {{i18n[currentLanguage].language}}
+        img.more(
+          src="@/assets/image/icon/arrow.png"
+          :class="{active: isShowLangs}"
+          @click="isShowLangs = !isShowLangs"
+        )
+      section.language-list(:class="{active: isShowLangs}")
+        template(
+          v-for="(language, key) in supportedLanguages"
+          :key="`small-langs-${key}`"
+        )
+          li.item(@click="changeLocale(key)")
+            img(:src="require(`/src/assets/image/icon/flag-${key}.png`)")
+            span.content {{ language.name }}
+
 </template>
 
 <script>
@@ -73,21 +135,22 @@ export default {
     return {
       i18n: {
         'zh-TW': {
-          login: '登入'
+          login: '登入',
+          language: '語言'
         },
         'en-US': {
-          login: 'Login'
+          login: 'Login',
+          language: 'Language'
         }
       },
       currentList: '',
       isShowLangs: false,
-      scroll: {
-        prevPos: 0,
-        class: {
-          isActive: false,
-          isFixed: false
-        }
-      }
+      preScrollPos: 0,
+      bar: {
+        isActive: false,
+        isFixed: false
+      },
+      showMenu: false
     }
   },
   created () {
@@ -105,40 +168,45 @@ export default {
       window.location.assign(`${window.location.pathname}?${params.toString()}`)
     },
     scrollEvent () {
-      const prevScrollpos = this.scroll.prevPos
+      const prevScrollpos = this.preScrollPos
       const currentScrollPos = window.pageYOffset
 
       if (prevScrollpos < currentScrollPos && currentScrollPos > 70) {
-        this.scroll.class.isActive = true
+        this.bar.isActive = true
       } else {
-        this.scroll.class.isActive = false
+        this.bar.isActive = false
       }
 
       if (currentScrollPos > 70) {
-        this.scroll.class.isFixed = true
+        this.bar.isFixed = true
       } else {
-        this.scroll.class.isFixed = false
+        this.bar.isFixed = false
       }
 
-      this.scroll.prevPos = currentScrollPos
+      this.preScrollPos = currentScrollPos
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-.large {
+@import "@/assets/scss/break-point.scss";
+
+.nav-bar {
   // [ layout ]
+  display: grid;
+  grid-template-areas:
+      'logo'
+      'menu';
   position: fixed;
   text-align: left;
   top: 0;
-  display: flex;
   align-items: center;
   z-index: 1;
 
   // [ position ]
   width: 100%;
-  height: 70px;
+  height: 85px;
 
   // [ skin ]
   background-color: #ffffff;
@@ -148,20 +216,174 @@ export default {
   // [ transition ]
   transition: top .5s;
 
+  @media screen and (min-width: $break-point-sm) {
+    // [ layout ]
+    grid-template: {
+      areas: 'logo menu';
+      columns: 450px auto;
+    }
+
+    // [ position ]
+    height: 70px;
+  }
+
   &.active {
     // [ position ]
-    top: -70px;
+    top: -85px;
+
+    @media screen and (min-width: $break-point-sm) {
+      // [ position ]
+      top: -70px;
+    }
   }
 
   &.fixed {
     position: fixed;
   }
 
+  .logo {
+    // [ layout ]
+    grid-area: logo;
+    display: flex;
+    align-items: center;
+
+    // [ position ]
+    width: 100%;
+    height: 100%;
+
+    .image {
+      // [ layout ]
+      display: block;
+      width: auto;
+      height: 36px;
+
+      // [ skin ]
+      margin: {
+        top: 5px;
+        left: auto;
+        right: auto;
+      }
+      background-color: transparent;
+
+      @media screen and (min-width: $break-point-sm) {
+        // [ layout ]
+        display: inline-block;
+
+        // [ position ]
+        width: 58px;
+        height: 44px;
+        margin: {
+          top: none;
+          left: 10px;
+          right: 0;
+        }
+      }
+    }
+
+    .caption {
+      // [ layout ]
+      display: none;
+      margin-left: 12px;
+
+      // [ skin ]
+      width: auto;
+      height: 44px;
+      padding: {
+        top: 6px;
+        bottom: 6px;
+      }
+      background-color: transparent;
+
+      @media screen and (min-width: $break-point-sm) {
+        display: inline-block;
+      }
+
+      > .title {
+        // [ layout ]
+        display: block;
+        width: auto;
+        height: 16px;
+        text-align: left;
+        line-height: normal;
+
+        // [ skin ]
+        color: #212121;
+        background-color: transparent;
+
+        > .text {
+          // [ layout ]
+          display: inline-block;
+          vertical-align: top;
+          line-height: 16px;
+
+          // [ skin ]
+          width: auto;
+          height: 16px;
+          margin-bottom: 4px;
+          background-color: transparent;
+          font: {
+            size: 16px;
+            style: normal;
+            weight: bold;
+          }
+        }
+      }
+      > .subtitle {
+        // [ layout ]
+        display: block;
+        text-align: left;
+        line-height: 12px;
+
+        // [ skin ]
+        width: auto;
+        height: 12px;
+        color: #212121;
+        background-color: transparent;
+
+        > .text {
+          // [ layout ]
+          display: inline-block;
+          vertical-align: top;
+          line-height: 12px;
+          word-spacing: 3px;
+
+          // [ skin ]
+          width: auto;
+          height: 12px;
+          border: {
+            color: transparent;
+            style: solid;
+            right-width: 3px;
+          }
+          background-color: transparent;
+          font: {
+            size: 12px;
+            style: normal;
+            weight: normal;
+          }
+        }
+      }
+    }
+  }
+}
+
+.large-menu {
+  // [ layout ]
+  display: none;
+  grid-area: menu;
+  justify-content: space-between;
+
+  // [ position ]
+  width: 100%;
+  height: 100%;
+
+  @media screen and (min-width: $break-point-lg){
+    // [ layout ]
+    display: flex;
+  }
+
   .navigation {
     // [ variable ]
-    $border-height: 20px;
-    $item-width: 320px;
-    $item-height: 50px + $border-height;
     $font-size: 16px;
 
     // [ position ]
@@ -285,10 +507,6 @@ export default {
   }
 
   .tools {
-    // [ position ]
-    position: absolute;
-    right: 8px;
-
     // [ layout ]
     display: flex;
     align-items: center;
@@ -457,102 +675,312 @@ export default {
   }
 }
 
-.logo {
+.small-menu {
   // [ layout ]
   display: flex;
-  align-items: center;
-  height: 100%;
+  grid-area: menu;
+  justify-content: center;
 
-  .image {
+  @media screen and (min-width: $break-point-sm) {
     // [ layout ]
-    display: inline-block;
-    width: 58px;
-    height: 44px;
-
-    // [ skin ]
-    margin: {
-      left: 10px;
-      right: 0;
-    }
-    background-color: transparent;
+    justify-content: flex-end;
   }
 
-  .caption {
+  @media screen and (min-width: $break-point-lg) {
     // [ layout ]
-    display: inline-block;
-    margin-left: 12px;
+    display: none;
+  }
+
+  > .menu {
+    // [ position ]
+    height: 35px;
+    width: auto;
+    margin: {
+      left: 20px;
+      right: 20px;
+    }
 
     // [ skin ]
-    width: auto;
-    height: 44px;
-    padding: {
-      top: 6px;
-      bottom: 6px;
-    }
-    background-color: transparent;
+    filter: opacity(70%);
+    transform: scale(1, 0.9);
 
-    > .title {
+    @media screen and (min-width: $break-point-sm) {
+      height: 40px;
+    }
+  }
+
+  > .navigation {
+    // [ variable ]
+    $navigation-width: 320px;
+    $topic-height: 50px;
+    $item-height: 40px;
+    $font-size: 16px;
+
+    // [ position ]
+    position: fixed;
+    top: 0;
+    right: -1 * $navigation-width;
+    z-index: 3;
+
+    // [ layout ]
+    overflow-y: auto;
+
+    // [ skin ]
+    width: 100%;
+    height: 100%;
+    background-color: #213262;
+
+    // [ animation ]
+    transition: right .5s;
+
+    &.active {
+      // [ position ]
+      right: 0;
+
       // [ layout ]
       display: block;
-      width: auto;
-      height: 16px;
-      text-align: left;
-      line-height: normal;
+    }
 
-      // [ skin ]
-      color: #212121;
-      background-color: transparent;
+    @media screen and (min-width: $navigation-width) {
+      // [ position ]
+      width: $navigation-width;
+    }
 
-      > .text {
-        // [ layout ]
-        display: inline-block;
-        vertical-align: top;
-        line-height: 16px;
+    > .close {
+      // [ layout ]
+      display: flex;
+      align-items: center;
+
+      // [ position ]
+      width: 100%;
+      height: 60px;
+      border-bottom: 2px solid #415277;
+
+      > img {
+        // [ position ]
+        height: 30px;
+        width: auto;
+        margin: {
+          left: auto;
+          right: auto;
+        }
 
         // [ skin ]
+        filter: invert(100%);
+      }
+    }
+
+    > .topic {
+      // [ layout ]
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      // [ position ]
+      width: 100%;
+      height: $topic-height;
+      border-bottom: 2px solid #415277;
+
+      > .text {
+        // [ position ]
+        margin-left: 20px;
+
+        // [ skin ]
+        color: #8f98ae;
+        line-height: 16px;
+        font-size: 16px;
+      }
+
+      > .more {
+        // [ position ]
+        height: 30px;
         width: auto;
-        height: 16px;
-        margin-bottom: 4px;
-        background-color: transparent;
-        font: {
-          size: 16px;
-          style: normal;
-          weight: bold;
+        margin-right: 20px;
+
+        // [ skin ]
+        filter: invert(66%);
+
+        // [ animation ]
+        transition: transform .5s;
+
+        &.active {
+          // [ skin ]
+          transform: rotate(0.25turn);
         }
       }
     }
-    > .subtitle {
+
+    > .list {
       // [ layout ]
       display: block;
-      text-align: left;
-      line-height: 12px;
+
+      // [ position ]
+      max-height: 0;
 
       // [ skin ]
-      width: auto;
-      height: 12px;
-      color: #212121;
-      background-color: transparent;
+      background-color: #1d2d56;
+      opacity: 0;
 
-      > .text {
+      // [ animation ]
+      transition: height .5s, padding .5s;
+
+      &.active {
+        // [ position ]
+        padding: {
+          top: 20px;
+          bottom: 20px;
+        }
+        max-height: 1000px;
+        opacity: 1;
+      }
+
+      > .item {
         // [ layout ]
-        display: inline-block;
-        vertical-align: top;
-        line-height: 12px;
-        word-spacing: 3px;
+        display: flex;
+        align-items: center;
+
+        // [ position ]
+        margin-left: 120px;
+        padding-left: 30px;
+        border-left: 1px solid #415277;
+        height: $item-height;
 
         // [ skin ]
+        color: #fff;
+        font-size: 16px;
+        line-height: 16px;
+      }
+    }
+
+    > .login {
+      // [ layout ]
+      display: flex;
+      align-items: center;
+
+      // [ position ]
+      width: 100%;
+      height: $topic-height;
+      border-bottom: 2px solid #415277;
+
+      > img {
+        // [ position ]
+        height: 25px;
         width: auto;
-        height: 12px;
-        border: {
-          color: transparent;
-          style: solid;
-          right-width: 3px;
+        margin: {
+          left: 20px;
+          right: 20px;
         }
-        background-color: transparent;
-        font: {
-          size: 12px;
-          style: normal;
-          weight: normal;
+
+        // [ skin ]
+        filter: invert(66%);
+      }
+
+      > p {
+        // [ skin ]
+        font-size: 16px;
+        line-height: 16px;
+        color: #8f98ae;
+      }
+    }
+
+    > .language {
+      // [ layout ]
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      // [ position ]
+      width: 100%;
+      height: $topic-height;
+      border-bottom: 2px solid #415277;
+
+      > .content {
+        // [ layout ]
+        display: flex;
+        align-items: center;
+
+        > .flag {
+          // [ position ]
+          height: 25px;
+          width: auto;
+          margin: {
+            left: 20px;
+            right: 20px;
+          }
+        }
+
+        > p {
+          // [ skin ]
+          font-size: 16px;
+          line-height: 16px;
+          color: #8f98ae;
+        }
+      }
+
+      > .more {
+        // [ position ]
+        height: 30px;
+        width: auto;
+        margin-right: 20px;
+
+        // [ skin ]
+        filter: invert(66%);
+
+        // [ animation ]
+        transition: transform .5s;
+
+        &.active {
+          // [ skin ]
+          transform: rotate(0.25turn);
+        }
+      }
+    }
+
+    > .language-list {
+      // [ layout ]
+      display: block;
+
+      // [ position ]
+      max-height: 0;
+
+      // [ skin ]
+      background-color: #1d2d56;
+      opacity: 0;
+
+      // [ animation ]
+      transition: height .5s, opacity .5s;
+
+      // [ hover ]
+      &:hover {
+        cursor: pointer;
+      }
+
+      &.active {
+        max-height: none;
+        opacity: 1;
+      }
+
+      > .item {
+        // [ layout ]
+        display: flex;
+        align-items: center;
+
+        // [ position ]
+        margin-left: 60px;
+        height: $topic-height;
+
+        > img {
+          // [ position ]
+          height: 20px;
+          width: auto;
+          margin-right: 10px;
+        }
+
+        > span {
+          // [ skin ]
+          color: #fff;
+          font-size: 16px;
+          line-height: 16px;
         }
       }
     }

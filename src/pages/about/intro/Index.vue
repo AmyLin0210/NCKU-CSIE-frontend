@@ -10,6 +10,26 @@ section.content
     paragraph(:content="intro")
   section#history
     topic(:topic="i18n[currentLanguage].index.history")
+    section.legend
+      legend-icon(color='blue')
+      p {{i18n[currentLanguage].history.dean}}
+    section.legend
+      legend-icon(color='red')
+      p {{i18n[currentLanguage].history.event}}
+    ul.list
+      template(v-for="(obj, idx) in history" :key="`history-${idx}`")
+        template(v-if="obj.type === 'dean'")
+          li.dean
+            time.duration {{`${obj.from} - ${(obj.to === 'now')? i18n[currentLanguage].history.now : obj.to}`}}
+            span.legend
+              legend-icon(color='blue' direction='left')
+              span.name {{obj[`${currentLanguage}`]}}
+        template(v-else)
+          li.event
+            time.time {{obj.time}}
+            span.legend
+              legend-icon(color='red' direction='right')
+              span.context {{obj[currentLanguage]}}
   section#develop
     topic(:topic="i18n[currentLanguage].index.develop")
     paragraph(:content="develop.intro")
@@ -38,6 +58,7 @@ import Banner from '@/components/common/Banner.vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Topic from '@/components/common/Topic.vue'
 import Paragraph from '@/components/common/Paragraph.vue'
+import LegendIcon from '@/components/about/LegendIcon.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -46,7 +67,8 @@ export default {
     Banner,
     Breadcrumb,
     Topic,
-    Paragraph
+    Paragraph,
+    LegendIcon
   },
   data () {
     return {
@@ -60,6 +82,11 @@ export default {
             education: '教育目標',
             course: '課程介紹',
             equipment: '設備介紹'
+          },
+          history: {
+            dean: '歷屆所長/系主任',
+            event: '系所歷史與沿革',
+            now: '迄今'
           }
         },
         'en-US': {
@@ -71,9 +98,136 @@ export default {
             education: 'Education & Research',
             course: 'Course Introduction',
             equipment: 'Equipment'
+          },
+          history: {
+            dean: 'History of the Deans',
+            event: 'Major Events',
+            now: 'Now'
           }
         }
       },
+      history: [
+        {
+          type: 'dean',
+          'zh-TW': '張燕光教授',
+          'en-US': 'Prof. Yeim-Kuan Chang',
+          from: '2021.2',
+          to: 'now'
+        },
+        {
+          type: 'dean',
+          'zh-TW': '高宏宇教授',
+          'en-US': 'Prof. Hung-Yu Kao',
+          from: '2017.8',
+          to: '2021.1'
+        },
+        {
+          type: 'dean',
+          'zh-TW': '謝孫源教授',
+          'en-US': 'Prof. Sun-Yuan Hsieh',
+          from: '2015.8',
+          to: '2017.8'
+        },
+        {
+          type: 'dean',
+          'zh-TW': '陳培殷教授',
+          'en-US': 'Prof. Pei-Yin Chen',
+          from: '2012.8',
+          to: '2015.7'
+        },
+        {
+          type: 'dean',
+          'zh-TW': '鄭憲宗教授',
+          'en-US': 'Prof. Sheng-Tzong Cheng',
+          from: '2009.8',
+          to: '2012.7'
+        },
+        {
+          type: 'event',
+          'zh-TW': '製造資訊與系統研究所整合至本系',
+          'en-US': 'Integration of the Institute of Manufacturing Information and Systems',
+          time: '2011.8'
+        },
+        {
+          type: 'dean',
+          'zh-TW': '黃崇明教授',
+          'en-US': 'Prof. Chung-Ming Huang',
+          from: '2006.8',
+          to: '2009.7'
+        },
+        {
+          type: 'event',
+          'zh-TW': '增設醫學資訊研究所',
+          'en-US': 'Establishment of the Institute of Medical Informatics',
+          time: '2006'
+        },
+        {
+          type: 'dean',
+          'zh-TW': '李強教授',
+          'en-US': 'Prof. Chiang Lee',
+          from: '2005.8',
+          to: '2006.7'
+        },
+        {
+          type: 'dean',
+          'zh-TW': '朱治平教授',
+          'en-US': 'Prof. Chih-Ping Chu',
+          from: '2002.8',
+          to: '2005.7'
+        },
+        {
+          type: 'event',
+          'zh-TW': '擴增大學部為兩班',
+          'en-US': 'Expanding the university department for two classes',
+          time: '2002.8'
+        },
+        {
+          type: 'dean',
+          'zh-TW': '吳宗憲教授',
+          'en-US': 'Prof. Chung-Hsien Wu',
+          from: '1999.8',
+          to: '2002.7'
+        },
+        {
+          type: 'dean',
+          'zh-TW': '孫永年教授',
+          'en-US': 'Prof. Yung-Nien Sun',
+          from: '1996.8',
+          to: '1999.7'
+        },
+        {
+          type: 'event',
+          'zh-TW': '成立大學部',
+          'en-US': 'Establishment of undergraduate program',
+          time: '1997.8'
+        },
+        {
+          type: 'dean',
+          'zh-TW': '王駿發教授',
+          'en-US': 'Prof. Jun-Fa Wang',
+          from: '1990.8',
+          to: '1996.7'
+        },
+        {
+          type: 'event',
+          'zh-TW': '成立博士班',
+          'en-US': 'Establishment of Ph.D. program',
+          time: '1992.8'
+        },
+        {
+          type: 'dean',
+          'zh-TW': '孔令洋教授',
+          'en-US': 'Prof. Ling-Yang Kong',
+          from: '1987.8',
+          to: '1990.7'
+        },
+        {
+          type: 'event',
+          'zh-TW': '成立碩士班',
+          'en-US': 'Establishment of the department',
+          time: '1987.8'
+        }
+      ],
       intro: [
         {
           'zh-TW': '本系歷史',
@@ -1054,6 +1208,226 @@ export default {
     left: auto;
     right: auto;
     bottom: 30px;
+  }
+}
+
+#history {
+  > .legend {
+    // [ layout ]
+    display: flex;
+    align-items: center;
+
+    > p {
+      // [ position ]
+      margin-left: 10px;
+
+      // [ skin ]
+      font-size: 20px;
+      line-height: 20px;
+    }
+  }
+
+  > .list {
+    // [ layout ]
+    display: block;
+    line-height: 0;
+
+    // [ position ]
+    margin: {
+      top: 30px;
+      bottom: 20px;
+    }
+    width: 100%;
+    height: auto;
+
+    > .dean {
+      // [ position ]
+      position: relative;
+      left: 10%;
+
+      // [ layout ]
+      display: block;
+      line-height: 0;
+
+      // [ skin ]
+      width: 40%;
+      height: auto;
+      transform: translateX( 1px );
+
+      > .duration {
+        // [ layout ]
+        display: block;
+        text-align: left;
+        line-height: 16px;
+
+        // [ skin ]
+        width: 100%;
+        min-height: 16px;
+        height: auto;
+        border-right: 2px solid #aaaaaa;
+        padding-bottom: 6px;
+        font-size: 16px;
+
+        @media screen and ( min-width: $break-point-sm ) {
+          // [ layout ]
+          line-height: 24px;
+
+          // [ skin ]
+          min-height: 24px;
+          font-size: 24px;
+        }
+      }
+
+      > .legend {
+        // [ position ]
+        position: relative;
+
+        // [ layout ]
+        display: block;
+
+        // [ skin ]
+        width: 100%;
+        height: auto;
+        border: {
+          top: 1px solid #399dff;
+          right: 2px solid #aaaaaa;
+        }
+        padding: {
+          top: 6px;
+          bottom: 20px;
+        }
+
+        > .name {
+          // [ layout ]
+          display: block;
+          margin-right: 30%;
+          text-align: left;
+          line-height: 12px;
+
+          // [ skin ]
+          width: 70%;
+          min-height: 12px;
+          height: auto;
+          font-size: 12px;
+          @media screen and ( min-width: $break-point-sm ) {
+            // [ layout ]
+            line-height: 20px;
+
+            // [ skin ]
+            min-height: 20px;
+            font-size: 20px;
+          }
+        }
+      }
+
+      &:first-child {
+        > .duration {
+          // [ skin ]
+          border-right: 0;
+        }
+      }
+
+      &:last-child {
+        > .legend {
+          // [ skin ]
+          border-right: 0;
+        }
+      }
+    }
+
+    > .event {
+      // [ position ]
+      position: relative;
+      left: 50%;
+
+      // [ layout ]
+      display: block;
+      line-height: 0;
+
+      // [ skin ]
+      width: 40%;
+      height: auto;
+      transform: translateX( -1px );
+
+      > .time {
+        // [ layout ]
+        display: block;
+        text-align: right;
+        line-height: 16px;
+
+        // [ skin ]
+        width: 100%;
+        min-height: 16px;
+        height: auto;
+        border-left: 2px solid #aaaaaa;
+        padding-bottom: 6px;
+        font-size: 16px;
+        @media screen and ( min-width: $break-point-sm ) {
+          // [ layout ]
+          line-height: 24px;
+
+          // [ skin ]
+          min-height: 24px;
+          font-size: 24px;
+        }
+      }
+
+      > .legend {
+        // [ position ]
+        position: relative;
+
+        // [ layout ]
+        display: block;
+
+        // [ skin ]
+        width: 100%;
+        height: auto;
+        border: {
+          top: 1px solid #ea6d55;
+          left: 2px solid #aaaaaa;
+        }
+        padding: {
+          top: 6px;
+          bottom: 20px;
+        }
+
+        > .context {
+          // [ layout ]
+          display: block;
+          margin-left: 30%;
+          text-align: right;
+          line-height: 12px;
+
+          // [ skin ]
+          width: 70%;
+          min-height: 12px;
+          height: auto;
+          font-size: 12px;
+          @media screen and ( min-width: $break-point-sm ) {
+            // [ layout ]
+            line-height: 20px;
+
+            // [ skin ]
+            min-height: 20px;
+            font-size: 20px;
+          }
+        }
+      }
+
+      &:first-child {
+        > .time {
+          // [ skin ]
+          border-left: 0;
+        }
+      }
+
+      &:last-child {
+        > .legend {
+          // [ skin ]
+          border-left: 0;
+        }
+      }
+    }
   }
 }
 
