@@ -1,56 +1,56 @@
 <template lang="pug">
 section.block
   template(v-for="(obj, idx) in content" :key="`paragraph-${idx}`")
-    // Heading1
-    // @param {Object} content
-    // @param {string} content.type - The type of this content ('heading1')
-    // @param {string} content[currentLanguage] - The text of this content
+    //- Heading1
+    //- @param {Object} content
+    //- @param {string} content.type - The type of this content ('heading1')
+    //- @param {string} content[currentLanguage] - The text of this content
     h2(v-if="obj.type === 'heading1'") {{obj[currentLanguage]}}
 
-    // Heading2
-    // @param {Object} content
-    // @param {string} content.type - The type of this content ('heading2')
-    // @param {string} content[currentLanguage] - The text of this content
+    //- Heading2
+    //- @param {Object} content
+    //- @param {string} content.type - The type of this content ('heading2')
+    //- @param {string} content[currentLanguage] - The text of this content
     h3(v-if="obj.type === 'heading2'") {{obj[currentLanguage]}}
 
-    // Button
-    // @param {Object} content
-    // @param {string} content.type - The type of this content ('button')
-    // @param {string} content[currentLanguage] - The text of this content
+    //- Button
+    //- @param {Object} content
+    //- @param {string} content.type - The type of this content ('button')
+    //- @param {string} content[currentLanguage] - The text of this content
     a.button(v-if="obj.type === 'button'" :href="obj.href" target='_blank') {{obj[currentLanguage]}}
 
-    // Text
-    // @param {Object} content
-    // @param {string} content.type - The type of this content ('text')
-    // @param {string} content[currentLanguage] - The text of this content
+    //- Text
+    //- @param {Object} content
+    //- @param {string} content.type - The type of this content ('text')
+    //- @param {string} content[currentLanguage] - The text of this content
     p.text(v-if="obj.type === 'text'") {{obj[currentLanguage]}}
 
-    // List
-    // @param {Object} content
-    // @param {string} content.type - The type of this content ('list')
-    // @param {string[]} content[currentLanguage] - A array of list items
+    //- List
+    //- @param {Object} content
+    //- @param {string} content.type - The type of this content ('list')
+    //- @param {string[]} content[currentLanguage] - A array of list items
     ul.list-block(v-if="obj.type === 'list'")
       li.list(v-for="(text, idx) in obj[currentLanguage]" :key="`list-${idx}`") {{text}}
 
-    // Description
-    // @param {Object} content
-    // @param {string} content.type - The type of this content ('button')
-    // @param {string[]} content[currentLanguage] - A array of list items
+    //- Description
+    //- @param {Object} content
+    //- @param {string} content.type - The type of this content ('button')
+    //- @param {string[]} content[currentLanguage] - A array of list items
     article.description-block(v-if="obj.type === 'description'")
       p.description(v-for="(text, idx) in obj[currentLanguage]" :key="`description-${idx}`") {{text}}
 
-    // Link
-    // @param {Object} content
-    // @param {string} content.type - The type of this content ('link')
-    // @param {string} content.href - The url of the content
-    // @param {string} content[currentLanguage] - The text of this content
+    //- Link
+    //- @param {Object} content
+    //- @param {string} content.type - The type of this content ('link')
+    //- @param {string} content.href - The url of the content
+    //- @param {string} content[currentLanguage] - The text of this content
     a.link(v-if="obj.type === 'link'" :href="obj.href") {{obj[currentLanguage]}}
 
-    // Image
-    // @param {Object} content
-    // @param {string} content.type - The type of this content ('image')
-    // @param {string} content.src - The source from @/assets/image/
-    // @param {string} content[currentLanguage] - The text of this content
+    //- Image
+    //- @param {Object} content
+    //- @param {string} content.type - The type of this content ('image')
+    //- @param {string} content.src - The source from @/assets/image/
+    //- @param {string} content[currentLanguage] - The text of this content
     img.image(v-if="obj.type === 'image'" :src="require(`@/assets/image/${obj.src}`)")
 
 </template>

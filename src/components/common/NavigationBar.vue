@@ -17,7 +17,11 @@ nav.nav-bar(:class="{active: bar.isActive, fixed: bar.isFixed}")
         span.text Computer Science
         span.text and
         span.text Information Engineering
-  // When mouse leave large-menu DOM, hide the list of the topic
+
+  //- There are two kinds of menu, one for small screen and another for large screen,
+  //- using CSS media query to control which is shown;
+
+  //- When mouse leave large-menu DOM, hide the list of the topic;
   section.large-menu(@mouseleave="currentList = ''")
     nav.navigation
       template(
@@ -25,6 +29,8 @@ nav.nav-bar(:class="{active: bar.isActive, fixed: bar.isFixed}")
         :key="`nav-${key}`"
       )
         ul.list
+          //- When mouse hover on the topic button,
+          //- show the list of specific topic
           a.header(
             :href="`${obj.header.href}?languageId=${currentLanguageId}`"
             @mouseover="currentList = key"
@@ -63,8 +69,9 @@ nav.nav-bar(:class="{active: bar.isActive, fixed: bar.isFixed}")
             )
               img.flag(:src="require(`/src/assets/image/icon/flag-${key}.png`)")
               span.content {{ language.name }}
+  //- Here is the menu for small screen;
   section.small-menu
-    img.menu(
+    img.menu-icon(
       src="@/assets/image/icon/menu.png"
       @click="showMenu = true"
     )
@@ -106,6 +113,9 @@ nav.nav-bar(:class="{active: bar.isActive, fixed: bar.isFixed}")
       a.login(:href="`/auth/login?languageId=${currentLanguageId}`")
         img(src="@/assets/image/icon/user.png")
         p {{i18n[currentLanguage].login}}
+      a.search(:href="`/home/search?languageId=${currentLanguageId}`")
+        img(src="@/assets/image/icon/search.png")
+        p {{i18n[currentLanguage].search}}
       section.language
         article.content
           img.flag(:src="require(`@/assets/image/icon/flag-${currentLanguageId}.png`)")
@@ -136,10 +146,12 @@ export default {
       i18n: {
         'zh-TW': {
           login: '登入',
+          search: '搜尋',
           language: '語言'
         },
         'en-US': {
           login: 'Login',
+          search: 'Search',
           language: 'Language'
         }
       },
@@ -691,7 +703,7 @@ export default {
     display: none;
   }
 
-  > .menu {
+  > .menu-icon {
     // [ position ]
     height: 35px;
     width: auto;
@@ -853,6 +865,37 @@ export default {
     }
 
     > .login {
+      // [ layout ]
+      display: flex;
+      align-items: center;
+
+      // [ position ]
+      width: 100%;
+      height: $topic-height;
+      border-bottom: 2px solid #415277;
+
+      > img {
+        // [ position ]
+        height: 25px;
+        width: auto;
+        margin: {
+          left: 20px;
+          right: 20px;
+        }
+
+        // [ skin ]
+        filter: invert(66%);
+      }
+
+      > p {
+        // [ skin ]
+        font-size: 16px;
+        line-height: 16px;
+        color: #8f98ae;
+      }
+    }
+
+    > .search {
       // [ layout ]
       display: flex;
       align-items: center;

@@ -20,6 +20,7 @@ section.content
       template(v-for="(obj, idx) in history" :key="`history-${idx}`")
         template(v-if="obj.type === 'dean'")
           li.dean
+            //- Check whether it is until now
             time.duration {{`${obj.from} - ${(obj.to === 'now')? i18n[currentLanguage].history.now : obj.to}`}}
             span.legend
               legend-icon(color='blue' direction='left')
