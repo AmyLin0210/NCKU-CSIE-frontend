@@ -16,18 +16,26 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+@import "@/assets/scss/break-point.scss";
+
 .topic {
   // [ layout ]
   display: block;
 
   // [ position ]
-  width: 100%;
+  width: fit-content;
   height: fit-content;
   margin: {
     top: 20px;
     bottom: 20px;
+    left: auto;
+    right: auto;
   }
   border-bottom: solid 1px #bfbfbf;
+
+  @media screen and ( min-width: $break-point-sm ) {
+    width: 100%;
+  }
 }
 
 .text {
