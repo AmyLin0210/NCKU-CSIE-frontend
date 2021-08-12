@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import language from '@/store/modules/language.js'
 import siteMap from '@/store/modules/site-map.js'
+import announcementTags from '@/store/modules/announcement-tags.js'
 
 export default createStore({
   state: {
@@ -11,6 +12,7 @@ export default createStore({
   },
   modules: {
     language,
-    siteMap
+    siteMap,
+    announcementTags
   }
 })
