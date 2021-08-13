@@ -71,7 +71,12 @@ module.exports = {
       entry: 'src/pages/resource/sitemap/main.js',
       filename: 'html/resource/sitemap.html',
       title: '網站地圖'
-    }
+    },
+    'auth/login': {
+      entry: 'src/pages/auth/login/main.js',
+      filename: 'html/auth/login.html',
+      title: '使用者登入'
+    },
   },
   devServer: {
     publicPath: ''

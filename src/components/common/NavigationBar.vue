@@ -45,7 +45,7 @@ nav.nav-bar(:class="{active: bar.isActive, fixed: bar.isFixed}")
               "
             ) {{item[$root.$i18n.locale].title}}
     section.tools
-      a.login(href="/auth/login")
+      a.login(:href="`/auth/login?languageId=${currentLanguageId}`")
         img.image(src="@/assets/image/icon/user.png")
         span.button {{i18n[currentLanguage].login}}
       img.search(src="@/assets/image/icon/search.png")
