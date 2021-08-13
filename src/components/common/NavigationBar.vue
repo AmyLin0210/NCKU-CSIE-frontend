@@ -109,6 +109,7 @@ nav.nav-bar(:class="{active: bar.isActive, fixed: bar.isFixed}")
               (item.href[0] === '/')?                                    \
               `${item.href}?languageId=${currentLanguageId}` : item.href \
             "
+            :class="{active: key === currentList}"
           ) {{item[$root.$i18n.locale].title}}
       a.login(:href="`/auth/login?languageId=${currentLanguageId}`")
         img(src="@/assets/image/icon/user.png")
@@ -855,12 +856,16 @@ export default {
         margin-left: 120px;
         padding-left: 30px;
         border-left: 1px solid #415277;
-        height: $item-height;
+        height: 0;
 
         // [ skin ]
         color: #fff;
         font-size: 16px;
         line-height: 16px;
+
+        &.active {
+          height: $item-height;
+        }
       }
     }
 
