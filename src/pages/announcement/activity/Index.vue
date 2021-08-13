@@ -1,10 +1,10 @@
 <template lang="pug">
 banner(
   :title="staticText[currentLanguage].title"
-  imageSrc="banner/announcement/all.jpg"
+  imageSrc="banner/announcement/activity.jpg"
 )
 section.main
-  breadcrumb(route="/announcement/all")
+  breadcrumb(route="/announcement/activity")
   topic(:topic="staticText[currentLanguage].title")
   announcement-filter(
     :supportTags="supportTags"
@@ -32,46 +32,25 @@ export default {
     return {
       staticText: {
         'zh-TW': {
-          title: '所有公告'
+          title: '活動公告'
         },
         'en-US': {
-          title: 'All Announcement'
+          title: 'Activity Announcement'
         }
       },
       supportTags: [
-        'award',
-        'college',
         'competition',
-        'admission',
-        'course',
         'exhibition',
-        'faculty',
-        'international',
-        'internship',
-        'master',
-        'phd',
-        'scholarship',
-        'speech',
-        'rule',
-        'recruitment',
-        'administrative',
-        'attachment'
+        'speech'
       ],
       defaultTag: 'all',
       tagTypesetting: {
-        rowItemAmount: 5,
+        rowItemAmount: 4,
         large: `
-          'all            admission internship    speech      rule'
-          'course         college   scholarship   exhibition  recruitment'
-          'faculty        master    international competition attachment'
-          'administrative phd       award         .           .';
+          'all speech exhibition competition';
         `,
         small: `
-          'all         course      faculty       administrative'
-          'internship  scholarship international award'
-          'admission   college     master        phd'
-          'speech      exhibition  competition   .'
-          'recruitment rule        attachment    .';
+          'all speech exhibition competition';
         `
       }
     }

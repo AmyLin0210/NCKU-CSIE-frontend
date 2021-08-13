@@ -1,6 +1,9 @@
 <template lang='pug'>
 section.filter
-  section.tags(:style="`grid-template-areas: ${tagTypesetting[screenSize]}`")
+  section.tags(
+    :style="`grid-template-areas: ${tagTypesetting[screenSize]}`"
+    :class="`row-item-amount-${tagTypesetting.rowItemAmount}`"
+  )
     announcement-tag(
       :class="{active: true}"
       :color="(defaultTag === 'all')? 'yellow' : getColorByKey(defaultTag)"
@@ -147,8 +150,25 @@ export default {
   row-gap: 8px;
   column-gap: 6px;
 
-  @media screen and ( min-width: $break-point-sm ) {
-    grid-template-columns: repeat(5, 1fr);
+  &.row-item-amount-5 {
+    @media screen and ( min-width: $break-point-sm ) {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+
+  &.row-item-amount-4 {
+    @media screen and ( min-width: $break-point-sm ) {
+      grid-template-columns: repeat(4, 1fr);
+      width: 440px;
+      margin: {
+        left: auto;
+        right: auto;
+      }
+    }
+
+    @media screen and ( min-width: $break-point-lg ) {
+      margin-left: 0;
+    }
   }
 }
 
