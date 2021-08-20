@@ -32,6 +32,16 @@ module.exports = {
       filename: 'html/announcement/index.html',
       title: '系所公告'
     },
+    'announcement/all': {
+      entry: 'src/pages/announcement/all/main.js',
+      filename: 'html/announcement/all.html',
+      title: '所有公告'
+    },
+    'announcement/activity': {
+      entry: 'src/pages/announcement/activity/main.js',
+      filename: 'html/announcement/activity.html',
+      title: '活動公告'
+    },
     student: {
       entry: 'src/pages/student/index/main.js',
       filename: 'html/student/index.html',
