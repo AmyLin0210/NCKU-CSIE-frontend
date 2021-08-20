@@ -4,12 +4,14 @@ section.filter
     :style="`grid-template-areas: ${tagTypesetting[screenSize]}`"
     :class="`row-item-amount-${tagTypesetting.rowItemAmount}`"
   )
+    //- default tag
     announcement-tag(
       :class="{active: true}"
       :color="(defaultTag === 'all')? 'yellow' : getColorByKey(defaultTag)"
       :text="(defaultTag === 'all')? staticText[currentLanguage].all : getI18nByKey({key: defaultTag, language: currentLanguage})"
       :tagKey="defaultTag"
     )
+    //- support tags
     announcement-tag(
       v-for="(key, idx) in supportTags"
       :key="`tag-${idx}`"
@@ -25,6 +27,7 @@ section.filter
     section.to
       label.text {{staticText[currentLanguage].to}}
       span.input
+        //- Todo : value = today
         input(type="date" value="2017-06-01")
   section.keyword
     label.text {{staticText[currentLanguage].keyword}}
