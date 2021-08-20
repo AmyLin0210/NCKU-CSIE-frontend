@@ -2,6 +2,8 @@
 node_modules
 /dist
 
+# test file
+/src/pages/test
 
 # local env files
 .env.local
