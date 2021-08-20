@@ -1,8 +1,9 @@
 <template lang='pug'>
 section.briefings
-  section.briefing(
+  a.briefing(
     v-for="(briefing, i) in briefings"
     :key="`briefing-${i}`"
+    :href="`/announcement/${briefing.announcementId}?languageId=${currentLanguageId}`"
   )
     section.tags
       announcement-tag(

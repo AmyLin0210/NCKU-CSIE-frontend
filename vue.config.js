@@ -92,6 +92,11 @@ module.exports = {
       filename: 'html/test/announcement.html',
       title: '測試公告'
     },
+    'test/announcement-detail': {
+      entry: 'src/pages/test/announcement-detail/main.js',
+      filename: 'html/test/announcement-detail.html',
+      title: '測試公告'
+    }
   },
   devServer: {
     publicPath: ''
