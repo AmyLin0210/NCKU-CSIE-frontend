@@ -81,7 +81,7 @@ export default {
     window.addEventListener('resize', this.onWidthChange)
   },
   computed: {
-    ...mapGetters('announcementTags', ['getI18nByKey', 'getColorByKey']),
+    ...mapGetters('announcement', ['getI18nByKey', 'getColorByKey']),
     ...mapGetters('language', ['currentLanguage'])
   },
   methods: {
@@ -106,10 +106,13 @@ export default {
       'tags'
       'time'
       'keyword';
-  row-gap: 20px;
+  row-gap: 10px;
 
   // [ position ]
-  margin-bottom: 10px;
+  margin: {
+    bottom: 40px;
+    top: 50px;
+  }
   width: 100%;
   margin: {
     left: auto;
@@ -151,7 +154,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   row-gap: 8px;
-  column-gap: 6px;
+  column-gap: 12px;
 
   &.row-item-amount-5 {
     @media screen and ( min-width: $break-point-sm ) {

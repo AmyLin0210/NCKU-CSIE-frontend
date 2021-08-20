@@ -11,13 +11,28 @@ section.main
     :defaultTag="defaultTag"
     :tagTypesetting="tagTypesetting"
   )
+  announcement-topic(:topic="staticText[currentLanguage].pinned")
+  no-result(
+    v-if="status.pinned === 'noResult'"
+    :withImage="false"
+  )
+  loading(v-if="status.pinned === 'loading'")
+  announcement-topic(:topic="staticText[currentLanguage].normal")
+  no-result(
+    v-if="status.normal === 'noResult'"
+    :withImage="true"
+  )
+  loading(v-if="status.normal === 'loading'")
 </template>
 
 <script>
 import Banner from '@/components/common/Banner.vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Topic from '@/components/common/Topic.vue'
+import NoResult from '@/components/common/NoResult.vue'
+import Loading from '@/components/common/Loading.vue'
 import AnnouncementFilter from '@/components/announcement/AnnouncementFilter.vue'
+import AnnouncementTopic from '@/components/announcement/AnnouncementTopic.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -26,16 +41,23 @@ export default {
     Banner,
     Breadcrumb,
     Topic,
-    AnnouncementFilter
+    NoResult,
+    Loading,
+    AnnouncementFilter,
+    AnnouncementTopic
   },
   data () {
     return {
       staticText: {
         'zh-TW': {
-          title: '所有公告'
+          title: '所有公告',
+          pinned: '置頂貼文',
+          normal: '一般公告'
         },
         'en-US': {
-          title: 'All Announcement'
+          title: 'All Announcement',
+          pinned: 'Pinned Announcement',
+          normal: 'Announcement'
         }
       },
       supportTags: [
@@ -73,6 +95,10 @@ export default {
           'speech      exhibition  competition   .'
           'recruitment rule        attachment    .';
         `
+      },
+      status: {
+        pinned: 'loading',
+        normal: 'briefing'
       }
     }
   },
@@ -91,13 +117,22 @@ export default {
 
   // [ position ]
   width: 90%;
+  max-width: 924px;
   margin: {
     left: auto;
     right: auto;
   }
+  padding: {
+    top: 20px;
+    bottom: 40px;
+  }
 
   @media screen and (min-width: $break-point-lg){
-    max-width: 1440;
+    max-width: 1240px;
+  }
+
+  @media screen and (min-width: $break-point-xl){
+    max-width: 1600px;
   }
 }
 </style>

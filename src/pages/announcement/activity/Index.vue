@@ -76,7 +76,7 @@ export default {
   }
 
   @media screen and (min-width: $break-point-lg){
-    max-width: 1440;
+    max-width: 1440px;
   }
 }
 </style>

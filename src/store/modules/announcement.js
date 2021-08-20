@@ -117,6 +117,27 @@ const getters = {
     return (key) => {
       return state[key].color
     }
+  },
+  getI18nById: state => {
+    // @param {Object} obj
+    // @param {string} obj.id - The id of the tag
+    // @param {string} obj.language - The language of current page
+    return (obj) => {
+      const tag = Object.keys(state).find(key => state[key].id === obj.id)
+      return state[tag][obj.language]
+    }
+  },
+  getColorById: state => {
+    // @param {String} id - The color of specific tag
+    return (id) => {
+      const tag = Object.keys(state).find(key => state[key].id === id)
+      return state[tag].color
+    }
+  },
+  getKeyById: state => {
+    return (id) => {
+      return Object.keys(state).find(key => state[key].id === id)
+    }
   }
 }
 

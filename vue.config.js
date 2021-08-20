@@ -87,6 +87,11 @@ module.exports = {
       filename: 'html/auth/login.html',
       title: '使用者登入'
     },
+    'test/announcement': {
+      entry: 'src/pages/test/announcement/main.js',
+      filename: 'html/test/announcement.html',
+      title: '測試公告'
+    },
   },
   devServer: {
     publicPath: ''

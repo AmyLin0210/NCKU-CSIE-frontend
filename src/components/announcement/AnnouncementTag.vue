@@ -1,7 +1,7 @@
 <template lang='pug'>
 button(
   :class="color"
-  :style="`grid-area: ${tagKey}`"
+  :style="(tagKey === undefined) ? '' : `grid-area: ${tagKey}`"
 ) {{text}}
 </template>
 
@@ -58,10 +58,6 @@ button {
   @media screen and ( min-width: $break-point-sm ) {
     // [ skin ]
     font-size: 14px;
-    margin: {
-      right: 8px;
-      left: 8px;
-    }
   }
 
   // [ interaction ]
