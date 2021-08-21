@@ -34,7 +34,7 @@ const state = {
       },
       staff: {
         'zh-TW': {
-          title: '系辦成員',
+          title: '行政人員',
           detail: ['承辦業務與聯絡', '的主要人員']
         },
         'en-US': {
