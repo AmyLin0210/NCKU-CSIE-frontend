@@ -27,6 +27,11 @@ module.exports = {
       filename: 'html/about/contact.html',
       title: '聯絡我們'
     },
+    'about/faculty': {
+      entry: 'src/pages/about/faculty/main.js',
+      filename: 'html/about/faculty.html',
+      title: '師資陣容'
+    },
     announcement: {
       entry: 'src/pages/announcement/index/main.js',
       filename: 'html/announcement/index.html',

@@ -4,6 +4,7 @@ node_modules
 
 # test file
 /src/pages/test
+/src/assets/test
 
 # local env files
 .env.local
