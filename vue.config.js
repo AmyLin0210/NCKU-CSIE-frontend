@@ -32,6 +32,11 @@ module.exports = {
       filename: 'html/about/faculty.html',
       title: '師資陣容'
     },
+    'about/staff': {
+      entry: 'src/pages/about/staff/main.js',
+      filename: 'html/about/staff.html',
+      title: '行政人員'
+    },
     announcement: {
       entry: 'src/pages/announcement/index/main.js',
       filename: 'html/announcement/index.html',
@@ -81,6 +86,11 @@ module.exports = {
       entry: 'src/pages/auth/login/main.js',
       filename: 'html/auth/login.html',
       title: '使用者登入'
+    },
+    'test/faculty': {
+      entry: 'src/pages/test/faculty/main.js',
+      filename: 'html/test/faculty.html',
+      title: '測試師資'
     },
   },
   devServer: {

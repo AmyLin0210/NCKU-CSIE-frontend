@@ -1,37 +1,18 @@
 <template lang="pug">
 banner(
   :title="staticText[currentLanguage].title"
-  imageSrc="banner/about/faculty.jpg"
+  imageSrc="banner/about/staff.jpg"
 )
 section.main
   section.content
-    breadcrumb(route="/about/faculty")
+    breadcrumb(route="/about/staff")
     topic(:topic="staticText[currentLanguage].title")
-    h3 {{staticText[currentLanguage].department}}
-    section.department
-      department-tag(
-        v-for="(department, idx) in getDepartment"
-        :key="`department-${idx}`"
-        :text="department[currentLanguage]"
-        :departmentId="department.id"
-      )
-    h3 {{staticText[currentLanguage].researchGroup}}
-    section.research-group
-      research-group-tag(
-        v-for="(researchGroup, idx) in getResearchGroup"
-        :key="`research-group-${idx}`"
-        :text="researchGroup[currentLanguage]"
-        :researchGroupId="researchGroup.id"
-      )
 </template>
 
 <script>
 import Banner from '@/components/common/Banner.vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Topic from '@/components/common/Topic.vue'
-import DepartmentTag from '@/components/about/DepartmentTag.vue'
-import ResearchGroupTag from '@/components/about/ResearchGroupTag.vue'
-import FacultyCard from '@/components/about/FacultyCard.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -39,31 +20,22 @@ export default {
   components: {
     Banner,
     Breadcrumb,
-    Topic,
-    DepartmentTag,
-    ResearchGroupTag,
-    FacultyCard
+    Topic
   },
   data () {
     return {
       staticText: {
         'zh-TW': {
-          title: '師資陣容',
-          department: '系所別',
-          researchGroup: '研究群'
+          title: '行政人員'
         },
         'en-US': {
-          title: 'Faculty',
-          department: 'Department',
-          researchGroup: 'Research Group'
+          title: 'Staff'
         }
       }
     }
   },
   computed: {
-    ...mapGetters('language', ['currentLanguage', 'currentLanguageId']),
-    ...mapGetters('department', ['getDepartment']),
-    ...mapGetters('researchGroup', ['getResearchGroup'])
+    ...mapGetters('language', ['currentLanguage', 'currentLanguageId'])
   }
 }
 </script>
