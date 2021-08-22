@@ -7,12 +7,14 @@ section.main
   section.content
     breadcrumb(route="/about/staff")
     topic(:topic="staticText[currentLanguage].title")
+    section.staff
 </template>
 
 <script>
 import Banner from '@/components/common/Banner.vue'
 import Breadcrumb from '@/components/common/Breadcrumb.vue'
 import Topic from '@/components/common/Topic.vue'
+import StaffCard from '@/components/about/StaffCard.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -20,7 +22,8 @@ export default {
   components: {
     Banner,
     Breadcrumb,
-    Topic
+    Topic,
+    StaffCard
   },
   data () {
     return {
@@ -73,65 +76,7 @@ export default {
   }
 }
 
-h3 {
-  // [ layout ]
-  display: block;
-
-  // [ position ]
-  height: 24px;
-  width: fit-content;
-  line-height: 20px;
-  margin: {
-    top: 40px;
-    bottom: 10px;
-    left: auto;
-    right: auto;
-  }
-  padding: {
-    bottom: 4px;
-    left: 8px;
-    right: 8px;
-  }
-  border-bottom: 2px solid rgba(0, 0, 0, .87);
-
-  // [ skin ]
-  font: {
-    size: 18px;
-    weight: bold;
-  }
-}
-
-.department {
-  // [ layout ]
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  row-gap: 10px;
-  column-gap: 10px;
-
-  // [ position ]
-  margin: {
-    top: 20px;
-    bottom: 20px;
-  }
-}
-
-.research-group {
-  // [ layout ]
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  row-gap: 10px;
-  column-gap: 10px;
-
-  // [ position ]
-  margin: {
-    top: 20px;
-    bottom: 20px;
-  }
-}
-
-.faculty {
+.staff {
   // [ layout ]
   display: grid;
   grid-template-columns: repeat(1, 98%);
