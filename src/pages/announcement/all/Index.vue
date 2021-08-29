@@ -23,6 +23,10 @@ section.main
     :withImage="true"
   )
   loading(v-if="status.normal === 'loading'")
+  announcement-briefings(
+    v-if="status.normal === 'briefing'"
+    :briefings="announcement"
+  )
 </template>
 
 <script>
@@ -33,6 +37,7 @@ import NoResult from '@/components/common/NoResult.vue'
 import Loading from '@/components/common/Loading.vue'
 import AnnouncementFilter from '@/components/announcement/AnnouncementFilter.vue'
 import AnnouncementTopic from '@/components/announcement/AnnouncementTopic.vue'
+import AnnouncementBriefings from '@/components/announcement/AnnouncementBriefings.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -44,7 +49,8 @@ export default {
     NoResult,
     Loading,
     AnnouncementFilter,
-    AnnouncementTopic
+    AnnouncementTopic,
+    AnnouncementBriefings
   },
   data () {
     return {
@@ -99,7 +105,51 @@ export default {
       status: {
         pinned: 'loading',
         normal: 'briefing'
-      }
+      },
+      announcement: [
+        {
+          announcementId: 1486,
+          content: '各位同學: 因疫情的關係,明天(5/14)的SEMINAR改成線上直播演講資訊如下:演講題目：選擇【今天的成功 是因為昨天做了很多對的事情】時間：2021/05/14/(五) 下午 2:30-3:30',
+          tags: [1, 5],
+          title: '109學年下 Seminar－學生上課點名統計表',
+          updateTime: '2021-06-02 11:02:50'
+        },
+        {
+          announcementId: 1487,
+          content: '各位同學: 因疫情的關係,明天(5/14)的SEMINAR改成線上直播演講資訊如下:演講題目：選擇【今天的成功 是因為昨天做了很多對的事情】時間：2021/05/14/(五) 下午 2:30-3:30',
+          tags: [1, 5],
+          title: '109學年下 Seminar－學生上課點名統計表',
+          updateTime: '2021-06-02 11:02:50'
+        },
+        {
+          announcementId: 1488,
+          content: '各位同學: 因疫情的關係,明天(5/14)的SEMINAR改成線上直播演講資訊如下:演講題目：選擇【今天的成功 是因為昨天做了很多對的事情】時間：2021/05/14/(五) 下午 2:30-3:30',
+          tags: [1, 5],
+          title: '109學年下 Seminar－學生上課點名統計表',
+          updateTime: '2021-06-02 11:02:50'
+        },
+        {
+          announcementId: 1489,
+          content: '各位同學: 因疫情的關係,明天(5/14)的SEMINAR改成線上直播演講資訊如下:演講題目：選擇【今天的成功 是因為昨天做了很多對的事情】時間：2021/05/14/(五) 下午 2:30-3:30',
+          tags: [1, 5],
+          title: '109學年下 Seminar－學生上課點名統計表',
+          updateTime: '2021-06-02 11:02:50'
+        },
+        {
+          announcementId: 1490,
+          content: '各位同學: 因疫情的關係,明天(5/14)的SEMINAR改成線上直播演講資訊如下:演講題目：選擇【今天的成功 是因為昨天做了很多對的事情】時間：2021/05/14/(五) 下午 2:30-3:30',
+          tags: [1, 5],
+          title: '109學年下 Seminar－學生上課點名統計表',
+          updateTime: '2021-06-02 11:02:50'
+        },
+        {
+          announcementId: 1491,
+          content: '各位同學: 因疫情的關係,明天(5/14)的SEMINAR改成線上直播演講資訊如下:演講題目：選擇【今天的成功 是因為昨天做了很多對的事情】時間：2021/05/14/(五) 下午 2:30-3:30',
+          tags: [1, 5],
+          title: '109學年下 Seminar－學生上課點名統計表',
+          updateTime: '2021-06-02 11:02:50'
+        }
+      ]
     }
   },
   computed: {

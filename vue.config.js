@@ -42,6 +42,11 @@ module.exports = {
       filename: 'html/announcement/activity.html',
       title: '活動公告'
     },
+    'announcement/announcement-detail': {
+      entry: 'src/pages/announcement/announcement-detail/main.js',
+      filename: 'html/announcement/announcement-detail.html',
+      title: '公告內容'
+    },
     student: {
       entry: 'src/pages/student/index/main.js',
       filename: 'html/student/index.html',
@@ -86,16 +91,6 @@ module.exports = {
       entry: 'src/pages/auth/login/main.js',
       filename: 'html/auth/login.html',
       title: '使用者登入'
-    },
-    'test/announcement': {
-      entry: 'src/pages/test/announcement/main.js',
-      filename: 'html/test/announcement.html',
-      title: '測試公告'
-    },
-    'test/announcement-detail': {
-      entry: 'src/pages/test/announcement-detail/main.js',
-      filename: 'html/test/announcement-detail.html',
-      title: '測試公告'
     }
   },
   devServer: {
