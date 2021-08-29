@@ -8,6 +8,11 @@ section.main
     breadcrumb(route="/about/staff")
     topic(:topic="staticText[currentLanguage].title")
     section.staff
+      staff-card(
+        v-for="(info, i) in staff"
+        :key="`staff-${i}`"
+        :staff="info"
+      )
 </template>
 
 <script>
@@ -34,7 +39,63 @@ export default {
         'en-US': {
           title: 'Staff'
         }
-      }
+      },
+      staff: [
+        {
+          photo: null,
+          business: ['總務職代'],
+          title: ['專案工作人員'],
+          name: '陳亭',
+          officeAddress: '資訊系館新大樓2F 65202',
+          officeTel: '06-2757575,62500,19',
+          mail: 'z11001023@ncku.edu.tw'
+        },
+        {
+          photo: null,
+          business: ['總務職代'],
+          title: ['專案工作人員'],
+          name: '陳亭',
+          officeAddress: '資訊系館新大樓2F 65202',
+          officeTel: '06-2757575,62500,19',
+          mail: 'z11001023@ncku.edu.tw'
+        },
+        {
+          photo: null,
+          business: ['總務職代'],
+          title: ['專案工作人員'],
+          name: '陳亭',
+          officeAddress: '資訊系館新大樓2F 65202',
+          officeTel: '06-2757575,62500,19',
+          mail: 'z11001023@ncku.edu.tw'
+        },
+        {
+          photo: null,
+          business: ['總務職代'],
+          title: ['專案工作人員'],
+          name: '陳亭',
+          officeAddress: '資訊系館新大樓2F 65202',
+          officeTel: '06-2757575,62500,19',
+          mail: 'z11001023@ncku.edu.tw'
+        },
+        {
+          photo: null,
+          business: ['總務職代'],
+          title: ['專案工作人員'],
+          name: '陳亭',
+          officeAddress: '資訊系館新大樓2F 65202',
+          officeTel: '06-2757575,62500,19',
+          mail: 'z11001023@ncku.edu.tw'
+        },
+        {
+          photo: null,
+          business: ['總務職代'],
+          title: ['專案工作人員'],
+          name: '陳亭',
+          officeAddress: '資訊系館新大樓2F 65202',
+          officeTel: '06-2757575,62500,19',
+          mail: 'z11001023@ncku.edu.tw'
+        }
+      ]
     }
   },
   computed: {
