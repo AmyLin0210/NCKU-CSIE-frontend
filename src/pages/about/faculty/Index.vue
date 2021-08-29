@@ -23,6 +23,12 @@ section.main
         :text="researchGroup[currentLanguage]"
         :researchGroupId="researchGroup.id"
       )
+    section.faculty
+      faculty-card(
+        v-for="faculty in faculties"
+        :key="`faculty-${faculty.profileId}`"
+        :faculty="faculty"
+      )
 </template>
 
 <script>
@@ -57,7 +63,113 @@ export default {
           department: 'Department',
           researchGroup: 'Research Group'
         }
-      }
+      },
+      faculties: [
+        {
+          photo: null,
+          departmentId: [0, 1, 6],
+          profileId: 16,
+          name: '張燕光',
+          title: ['教授', '系主任'],
+          mail: 'ykchang@mail.ncku.edu.tw',
+          officeAddress: '資訊系館新大樓12F 65C10',
+          officeTel: '06-2757575,62539',
+          labName: '計算機網路架構實驗室',
+          labWeb: 'http://cial.csie.ncku.edu.tw/',
+          labAddress: '資訊系館新大樓5F 65502'
+        },
+        {
+          photo: null,
+          departmentId: [0, 1, 6],
+          profileId: 16,
+          name: '張燕光',
+          title: ['教授', '系主任'],
+          mail: 'ykchang@mail.ncku.edu.tw',
+          officeAddress: '資訊系館新大樓12F 65C10',
+          officeTel: '06-2757575,62539',
+          labName: '計算機網路架構實驗室',
+          labWeb: 'http://cial.csie.ncku.edu.tw/',
+          labAddress: '資訊系館新大樓5F 65502'
+        },
+        {
+          photo: null,
+          departmentId: [0, 1, 6],
+          profileId: 16,
+          name: '張燕光',
+          title: ['教授', '系主任'],
+          mail: 'ykchang@mail.ncku.edu.tw',
+          officeAddress: '資訊系館新大樓12F 65C10',
+          officeTel: '06-2757575,62539',
+          labName: '計算機網路架構實驗室',
+          labWeb: 'http://cial.csie.ncku.edu.tw/',
+          labAddress: '資訊系館新大樓5F 65502'
+        },
+        {
+          photo: null,
+          departmentId: [0, 1, 6],
+          profileId: 16,
+          name: '張燕光',
+          title: ['教授', '系主任'],
+          mail: 'ykchang@mail.ncku.edu.tw',
+          officeAddress: '資訊系館新大樓12F 65C10',
+          officeTel: '06-2757575,62539',
+          labName: '計算機網路架構實驗室',
+          labWeb: 'http://cial.csie.ncku.edu.tw/',
+          labAddress: '資訊系館新大樓5F 65502'
+        },
+        {
+          photo: null,
+          departmentId: [0, 1, 6],
+          profileId: 16,
+          name: '張燕光',
+          title: ['教授', '系主任'],
+          mail: 'ykchang@mail.ncku.edu.tw',
+          officeAddress: '資訊系館新大樓12F 65C10',
+          officeTel: '06-2757575,62539',
+          labName: '計算機網路架構實驗室',
+          labWeb: 'http://cial.csie.ncku.edu.tw/',
+          labAddress: '資訊系館新大樓5F 65502'
+        },
+        {
+          photo: null,
+          departmentId: [0, 1, 6],
+          profileId: 16,
+          name: '張燕光',
+          title: ['教授', '系主任'],
+          mail: 'ykchang@mail.ncku.edu.tw',
+          officeAddress: '資訊系館新大樓12F 65C10',
+          officeTel: '06-2757575,62539',
+          labName: '計算機網路架構實驗室',
+          labWeb: 'http://cial.csie.ncku.edu.tw/',
+          labAddress: '資訊系館新大樓5F 65502'
+        },
+        {
+          photo: null,
+          departmentId: [0, 1, 6],
+          profileId: 16,
+          name: '張燕光',
+          title: ['教授', '系主任'],
+          mail: 'ykchang@mail.ncku.edu.tw',
+          officeAddress: '資訊系館新大樓12F 65C10',
+          officeTel: '06-2757575,62539',
+          labName: '計算機網路架構實驗室',
+          labWeb: 'http://cial.csie.ncku.edu.tw/',
+          labAddress: '資訊系館新大樓5F 65502'
+        },
+        {
+          photo: null,
+          departmentId: [0, 1, 6],
+          profileId: 16,
+          name: '張燕光',
+          title: ['教授', '系主任'],
+          mail: 'ykchang@mail.ncku.edu.tw',
+          officeAddress: '資訊系館新大樓12F 65C10',
+          officeTel: '06-2757575,62539',
+          labName: '計算機網路架構實驗室',
+          labWeb: 'http://cial.csie.ncku.edu.tw/',
+          labAddress: '資訊系館新大樓5F 65502'
+        }
+      ]
     }
   },
   computed: {

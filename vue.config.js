@@ -32,6 +32,11 @@ module.exports = {
       filename: 'html/about/faculty.html',
       title: '師資陣容'
     },
+    'about/faculty-detail': {
+      entry: 'src/pages/about/faculty-detail/main.js',
+      filename: 'html/about/faculty-detail.html',
+      title: '師資陣容'
+    },
     'about/staff': {
       entry: 'src/pages/about/staff/main.js',
       filename: 'html/about/staff.html',
@@ -86,12 +91,7 @@ module.exports = {
       entry: 'src/pages/auth/login/main.js',
       filename: 'html/auth/login.html',
       title: '使用者登入'
-    },
-    'test/faculty': {
-      entry: 'src/pages/test/faculty/main.js',
-      filename: 'html/test/faculty.html',
-      title: '測試師資'
-    },
+    }
   },
   devServer: {
     publicPath: ''
