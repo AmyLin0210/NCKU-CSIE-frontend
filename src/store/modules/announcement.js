@@ -128,13 +128,14 @@ const getters = {
     }
   },
   getColorById: state => {
-    // @param {String} id - The color of specific tag
+    // @param {String} id - The id of the specific tag
     return (id) => {
       const tag = Object.keys(state).find(key => state[key].id === id)
       return state[tag].color
     }
   },
   getKeyById: state => {
+    // @param {String} id - The id of the specific tag
     return (id) => {
       return Object.keys(state).find(key => state[key].id === id)
     }

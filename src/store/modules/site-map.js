@@ -336,6 +336,10 @@ const getters = {
     return state
   },
   getEntryByTopic: state => {
+    // @param {Object} obj
+    // @param {string} obj.subclass
+    // @param {string} obj.language - The language of current page
+    // @param {string} obj.languageId - The language of current page
     return (obj) => {
       return Object.keys(state[obj.topic].subclass).map(key => {
         const entry = state[obj.topic].subclass[key]
