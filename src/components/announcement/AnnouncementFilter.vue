@@ -1,8 +1,8 @@
 <template lang='pug'>
 section.filter
   section.tags(
-    :style="`grid-template-areas: ${tagTypesetting[screenSize]}`"
-    :class="`row-item-amount-${tagTypesetting.rowItemAmount}`"
+    :style="`grid-template-areas: ${tagLayout[screenSize]}`"
+    :class="`row-item-amount-${tagLayout.rowItemAmount}`"
   )
     //- default tag
     announcement-tag(
@@ -23,12 +23,11 @@ section.filter
     section.from
       label.text {{staticText[currentLanguage].from}}
       span.input
-        input(type="date" value="2017-06-01")
+        input(type="date" value="2018-01-01")
     section.to
       label.text {{staticText[currentLanguage].to}}
       span.input
-        //- Todo : value = today
-        input(type="date" value="2017-06-01")
+        input(type="date" :value="getDateToday()")
   section.keyword
     label.text {{staticText[currentLanguage].keyword}}
     section.input
@@ -51,7 +50,7 @@ export default {
       type: String,
       required: true
     },
-    tagTypesetting: {
+    tagLayout: {
       type: Object
     }
   },
@@ -91,6 +90,10 @@ export default {
       } else {
         this.screenSize = 'small'
       }
+    },
+    getDateToday () {
+      const today = new Date()
+      return `${today.getFullYear()}-${today.getMonth() < 9 ? '0' : ''}${today.getMonth() + 1}-${today.getDate()}`
     }
   }
 }

@@ -9,7 +9,7 @@ section.main
   announcement-filter(
     :supportTags="supportTags"
     :defaultTag="defaultTag"
-    :tagTypesetting="tagTypesetting"
+    :tagLayout="tagLayout"
   )
   announcement-topic(:topic="staticText[currentLanguage].pinned")
   no-result(
@@ -86,7 +86,7 @@ export default {
         'attachment'
       ],
       defaultTag: 'all',
-      tagTypesetting: {
+      tagLayout: {
         rowItemAmount: 5,
         large: `
           'all            admission internship    speech      rule'

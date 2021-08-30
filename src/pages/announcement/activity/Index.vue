@@ -9,7 +9,7 @@ section.main
   announcement-filter(
     :supportTags="supportTags"
     :defaultTag="defaultTag"
-    :tagTypesetting="tagTypesetting"
+    :tagLayout="tagLayout"
   )
 </template>
 
@@ -44,7 +44,7 @@ export default {
         'speech'
       ],
       defaultTag: 'all',
-      tagTypesetting: {
+      tagLayout: {
         rowItemAmount: 4,
         large: `
           'all speech exhibition competition';
