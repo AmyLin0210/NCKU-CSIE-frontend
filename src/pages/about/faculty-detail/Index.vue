@@ -840,7 +840,7 @@ $card-gap: 32px;
     bottom: 64px;
   }
 
-  @media screen and (min-width: $break-point-md) {
+  @media screen and (min-width: $break-point-sm) {
     grid-template: {
       areas:
         'photo          name'
@@ -857,7 +857,7 @@ $card-gap: 32px;
     }
   }
 
-  @media screen and (min-width: $break-point-lg) {
+  @media screen and (min-width: $break-point-md) {
     grid-template: {
       areas:
         'name           name '
@@ -880,6 +880,7 @@ $card-gap: 32px;
     display: flex;
     justify-self: center;
     width: 80%;
+    max-width: 200px;
     height: auto;
     border-radius: 50%;
 
@@ -887,13 +888,24 @@ $card-gap: 32px;
     background-color: rgba(0, 0, 0, .1);
 
     @media screen and (min-width: $break-point-sm) {
-      width: 350px;
-      height: 350px;
+      width: 200px;
+      height: 200px;
+      max-width: none;
+    }
+
+    @media screen and (min-width: $break-point-md) {
+      // [ layout ]
+      justify-self: flex-end;
+
+      // [ position ]
+      width: 300px;
+      height: 300px;
     }
 
     @media screen and (min-width: $break-point-lg) {
-      // [ layout ]
-      justify-self: flex-end;
+      // [ position ]
+      width: 350px;
+      height: 350px;
     }
   }
 
@@ -921,12 +933,12 @@ $card-gap: 32px;
         weight: bold;
       }
 
-      @media screen and (min-width: $break-point-md) {
+      @media screen and (min-width: $break-point-sm) {
         width: fit-content;
         justify-content: none;
       }
 
-      @media screen and (min-width: $break-point-lg) {
+      @media screen and (min-width: $break-point-md) {
         align-self: flex-end;
       }
     }
@@ -944,7 +956,7 @@ $card-gap: 32px;
       line-height: 16px;
       font-size: 16px;
 
-      @media screen and (min-width: $break-point-md) {
+      @media screen and (min-width: $break-point-sm) {
         width: fit-content;
         justify-content: none;
       }
@@ -959,7 +971,7 @@ $card-gap: 32px;
     column-gap: 8px;
     justify-content: center;
 
-    @media screen and (min-width: $break-point-md) {
+    @media screen and (min-width: $break-point-sm) {
       justify-content: flex-start;
     }
 
@@ -1365,6 +1377,14 @@ $card-gap: 32px;
 
     // [ position ]
     width: 100%;
+
+    @media screen and (min-width: $break-point-md) {
+      grid-template: {
+        areas: 'time info';
+        columns: auto auto;
+      }
+      column-gap: 50px;
+    }
 
     > .time {
       // [ layout ]

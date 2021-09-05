@@ -212,10 +212,10 @@ export default {
 
     // [ position ]
     padding: {
-      top: 6px;
-      bottom: 6px;
-      left: 8px;
-      right: 8px;
+      top: 3px;
+      bottom: 3px;
+      left: 4px;
+      right: 4px;
     }
     border-radius: 4px;
     border: 1px solid rgba(0, 0, 0, .7);
